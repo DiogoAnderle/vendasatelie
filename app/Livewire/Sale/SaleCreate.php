@@ -3,6 +3,7 @@
 namespace App\Livewire\Sale;
 
 use App\Models\Cart;
+use App\Models\Customer;
 use App\Models\Product;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
@@ -15,15 +16,31 @@ class SaleCreate extends Component
 {
     use WithPagination;
 
-    // Propriedades de classe
+    // Class Properties
     public $search = '';
     public $quantity = 10;
     public $totalRegistros = 0;
 
+    // Payment Properties
+    public $additionOrDiscount = 0;
+    public $netValue = 0;
+    public $updatingValue = 0;
+    public $customerId = 1;
+
     public function render()
     {
+        if ($this->search = '') {
+            $this->resetPage();
+        }
 
         $this->totalRegistros = Product::count();
+
+        if ($this->updatingValue == 0) {
+            $this->netValue = Cart::getTotal();
+            $this->netValue = Cart::getTotal() + floatval($this->additionOrDiscount);
+
+        }
+
 
         return view(
             'livewire.sale.sale-create',
@@ -36,18 +53,32 @@ class SaleCreate extends Component
         );
     }
 
+    public function updatingNetValue($value)
+    {
+        $this->updatingValue = 1;
+        $this->netValue = Cart::getTotal();
+        $this->netValue = $value + floatval($this->additionOrDiscount);
+
+    }
+
     #[On('add-product')]
     public function addProduct(Product $product)
     {
         Cart::add($product);
     }
-    //Decrement Item on cart
+
+    #[On('customerId')]
+    public function customerId($id = 1)
+    {
+        $this->customerId = $id;
+    }
+    //Decrement Item quantity on cart
     public function decrement($id)
     {
         Cart::decrement($id);
         $this->dispatch("incrementStock.{$id}");
     }
-    // Increment Item on cart
+    // Increment Item quantity on cart
     public function increment($id)
     {
         Cart::increment($id);
@@ -55,16 +86,22 @@ class SaleCreate extends Component
     }
 
     //Remove Item on cart
-    public function removeItem($id)
+    public function removeItem($id, $quantity)
     {
         Cart::removeItem($id);
+        $this->dispatch("returnStock.{$id}", $quantity);
     }
 
     //Clean Cart
     public function clear()
     {
         Cart::clear();
+
+        $this->netValue = 0;
+        $this->additionOrDiscount = 0;
         $this->dispatch('msg', 'Venda Cancelada');
+        $this->dispatch('refreshProducts');
+
     }
 
     #[Computed()]

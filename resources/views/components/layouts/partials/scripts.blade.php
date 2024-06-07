@@ -11,3 +11,5 @@
 <!-- PLUGINS -->
 <!-- Sweet Alert -->
 <script src="{{ asset('plugins/sweetalert2/sweetalert2.js') }}"></script>
+
+@yield('scripts')

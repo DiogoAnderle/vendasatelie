@@ -11,3 +11,4 @@
 <link rel="stylesheet" href="{{ asset('plugins/sweetalert2/sweetalert2.css') }}">
 <!-- Sweet Alert -->
 <link rel="stylesheet" href="{{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
+@yield('styles')

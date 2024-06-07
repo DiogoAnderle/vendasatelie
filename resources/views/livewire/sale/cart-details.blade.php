@@ -1,6 +1,9 @@
 <div class="card card-info">
     <div class="card-header">
-        <h3 class="card-title"><i class="fas fa-cart-plus"></i> Detalhes da venda </h3>
+        <h3 class="card-title">
+            <i class="fas fa-cart-plus"></i>
+            Detalhes da venda
+        </h3>
         <div class="card-tools">
             <!-- Products count -->
             <i class="fas fa-tshirt" title="Numero productos"></i>
@@ -37,7 +40,8 @@
                             <td>{!! currencyBRLFormat($product->price) !!}</td>
                             <td>
                                 <!-- Botones para aumentar o disminuir la cantidad del producto en el carrito -->
-                                <button wire:click="decrement({{ $product->id }})" class="btn btn-primary btn-xs">
+                                <button wire:click="decrement({{ $product->id }})"
+                                    class="btn btn-primary btn-xs"wire:loading.attr='disabled' wire:target='decrement'>
                                     -
                                 </button>
 
@@ -53,8 +57,8 @@
                             <td>{{ currencyBRLFormat($product->quantity * $product->price) }}</td>
                             <td>
                                 <!-- Boton para eliminar el producto del carrito -->
-                                <button wire:click="removeItem({{ $product->id }})" class="btn btn-danger btn-xs"
-                                    title="Eliminar">
+                                <button wire:click="removeItem({{ $product->id }}, {{ $product->quantity }})"
+                                    class="btn btn-danger btn-xs" title="Eliminar">
                                     <i class="fas fa-trash-alt"></i>
                                 </button>
                             </td>

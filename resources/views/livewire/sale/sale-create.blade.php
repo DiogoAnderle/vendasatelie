@@ -15,11 +15,17 @@
         <div class="row">
             {{-- Sales Detail --}}
             <div class="col-md-6">
+                {{-- Customer --}}
+                @livewire('sale.customer-sale')
+                {{-- Cart Details --}}
                 @include('livewire.sale.cart-details')
+
+                {{-- Payment --}}
+                @include('livewire.sale.payment-card')
+
+
             </div>
-
             {{-- Products --}}
-
             <div class="col-md-6">
                 @include('livewire.sale.products-list')
             </div>

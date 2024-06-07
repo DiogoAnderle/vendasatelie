@@ -17,6 +17,8 @@ class ProductRow extends Component
         return [
             "decrementStock.{$this->product->id}" => "decrementStock",
             "incrementStock.{$this->product->id}" => "incrementStock",
+            "refreshProducts" => "mount",
+            "returnStock.{$this->product->id}" => "returnStock",
         ];
     }
     public function render()
@@ -45,7 +47,14 @@ class ProductRow extends Component
     }
     public function incrementStock()
     {
+        if ($this->stock == $this->product->stock - 1) {
+            return;
+        }
         $this->stock++;
+    }
+    public function returnStock($quantity)
+    {
+        $this->stock = $this->stock + $quantity;
     }
 
     public function stockLabel()

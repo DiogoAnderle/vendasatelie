@@ -204,7 +204,7 @@ class NumbersInFull
 
             } else {
 
-                $valor_convertido = ucfirst($converted) . $currency . ' com ' . $decimals . $decimals;
+                $valor_convertido = ucfirst($converted) . $currency . ' com ' . $decimals . 'centavos';
 
             }
 
