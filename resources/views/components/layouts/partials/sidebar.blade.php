@@ -50,7 +50,7 @@
                         </li>
 
                         <li class="nav-item ml-3">
-                            <a class="nav-link ">
+                            <a href="{{ route('sales.list') }}" class="nav-link ">
                                 <i class="fas fa-shopping-cart nav-icon"></i>
                                 <p>Mostrar vendas</p>
                             </a>
@@ -90,6 +90,15 @@
                         <i class="nav-icon fas fa-users"></i>
                         <p>
                             Usuários
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('shop') }}" class="nav-link">
+                        <i class="nav-icon fas fa-store-alt"></i>
+                        <p>
+                            Loja
                         </p>
                     </a>
                 </li>

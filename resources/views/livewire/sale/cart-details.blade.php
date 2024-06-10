@@ -11,6 +11,10 @@
             <!-- Articles count -->
             <i class="fas fa-shopping-basket ml-2" title="Numero items"></i>
             <span class="badge badge-pill bg-purple">{{ $totalItems }} </span>
+
+            <button wire:click="createSale" class="btn bg-purple btn-sm ml-2">
+                <i class="fas fa-cart-plus"></i> Criar Venda
+            </button>
         </div>
     </div>
     <!-- card-body -->

@@ -3,8 +3,10 @@
 namespace App\Livewire\Sale;
 
 use App\Models\Cart;
-use App\Models\Customer;
+use App\Models\Item;
 use App\Models\Product;
+use App\Models\Sale;
+use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Title;
@@ -26,6 +28,7 @@ class SaleCreate extends Component
     public $netValue = 0;
     public $updatingValue = 0;
     public $customerId = 1;
+    public $customer = '';
 
     public function render()
     {
@@ -51,6 +54,53 @@ class SaleCreate extends Component
                 'totalItems' => Cart::totalItems(),
             ]
         );
+    }
+
+    //Create Sale
+    public function createSale()
+    {
+        $cart = Cart::getCart();
+        if (count($cart) == 0) {
+            $this->dispatch('msg', 'Carrinho Vazio', 'danger');
+            return;
+        }
+
+        DB::transaction(function () {
+            $sale = new Sale();
+            $sale->total = Cart::getTotal();
+            $sale->addition_discount = $this->additionOrDiscount;
+            $sale->net_value = $this->netValue;
+            $sale->user_id = userID();
+            $sale->customer_id = $this->customerId;
+            $sale->sale_date = date('Y-m-d');
+            $sale->save();
+
+            //global $cart;
+            //agregate items on sale
+            foreach (\Cart::session(userID())->getContent() as $product) {
+                $item = new Item();
+                $item->name = $product->name;
+                $item->image = $product->associatedModel->imagem;
+                $item->price = $product->price;
+                $item->quantity = $product->quantity;
+                $item->product_id = $product->id;
+                $item->sale_date = date('Y-m-d');
+
+                $item->save();
+
+                $sale->items()->attach($item->id, [
+                    "quantity" => $product->quantity,
+                    "date_item_sale" => date('Y-m-d')
+                ]);
+
+                Product::find($product->id)->decrement('stock', $product->quantity);
+            }
+
+            Cart::clear();
+            $this->reset(['additionOrDiscount', 'netValue', 'customer']);
+            $this->dispatch('msg', 'Venda Criada com sucesso', 'success', $sale->id);
+
+        });
     }
 
     public function updatingNetValue($value)

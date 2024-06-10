@@ -61,7 +61,6 @@ class User extends Authenticatable
     }
 
 
-
     protected function imagem(): Attribute
     {
         return Attribute::make(
@@ -69,5 +68,12 @@ class User extends Authenticatable
                 return $this->image ? Storage::url('public/' . $this->image->url) : asset('no-image.png');
             }
         );
+    }
+
+    //Relations
+
+    public function sales()
+    {
+        return $this->hasMany(Sale::class);
     }
 }

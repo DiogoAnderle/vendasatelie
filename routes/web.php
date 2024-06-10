@@ -1,6 +1,7 @@
 <?php
 
-
+use App\Http\Controllers\PdfController;
+use App\Livewire\Shop\ShopComponent;
 use Illuminate\Support\Facades\Route;
 
 use App\Livewire\Category\CategoryComponent;
@@ -12,6 +13,8 @@ use App\Livewire\User\UserShow;
 use App\Livewire\Customer\CustomerComponent;
 use App\Livewire\Customer\CustomerShow;
 use App\Livewire\Sale\SaleCreate;
+use App\Livewire\Sale\SaleList;
+use App\Livewire\Sale\SaleShow;
 use App\Livewire\Home\Home;
 
 /*
@@ -46,3 +49,9 @@ Route::get('/clientes', CustomerComponent::class)->name('customers')->middleware
 Route::get('/clientes/{customer}', CustomerShow::class)->name('customers.show')->middleware(['auth']);
 
 Route::get('/criar-vendas', SaleCreate::class)->name('sales.create')->middleware(['auth']);
+Route::get('/sales', SaleList::class)->name('sales.list')->middleware(['auth']);
+Route::get('/sales/{sale}', SaleShow::class)->name('sales.show')->middleware(['auth']);
+
+Route::get('/shop', ShopComponent::class)->name('shop')->middleware(['auth']);
+
+Route::get('/sales/invoice/{sale}', [PdfController::class, 'invoicePdf'])->name('sales.invoice')->middleware(['auth']);

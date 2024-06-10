@@ -12,8 +12,10 @@ class Messages extends Component
         return view('livewire.messages');
     }
     #[On('msg')]
-    public function messages($msg)
+    public function messages($msg, $type = "success", $sale = null)
     {
         session()->flash('msg', $msg);
+        session()->flash('type', $type);
+        session()->flash('sale', $sale);
     }
 }

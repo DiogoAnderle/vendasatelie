@@ -1,8 +1,9 @@
 <div>
     <x-card cardTitle="Criar Venda">
         <x-slot:cardTools>
-            <a href="#" class="btn btn-sm btn-primary mr-2">
-                <i class="fas fa-plus-circle"></i> Ir para as Vendas
+
+            <a href="{{ route('sales.list') }}" class="btn btn-sm btn-primary mr-2">
+                <i class="fas fa-shopping-cart"></i> Ir para as Vendas
             </a>
 
             <a href="#" class="btn btn-sm btn-danger" wire:click='clear'>
@@ -22,8 +23,6 @@
 
                 {{-- Payment --}}
                 @include('livewire.sale.payment-card')
-
-
             </div>
             {{-- Products --}}
             <div class="col-md-6">

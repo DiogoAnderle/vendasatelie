@@ -20,7 +20,6 @@
                     </div>
 
                     <select wire:model.live="customer" id="select2" class="form-control">
-                        <option value="0">--Selecione um cliente--</option>
                         @foreach ($customers as $customer)
                             <option value="{{ $customer->id }}">{{ $customer->name }}</option>
                         @endforeach

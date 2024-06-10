@@ -13,6 +13,8 @@ return new class extends Migration {
         Schema::create('sales', function (Blueprint $table) {
             $table->id();
             $table->decimal('total', 10, 2);
+            $table->decimal('addition_discount', 10, 2);
+            $table->decimal('net_value', 10, 2);
             $table->date('sale_date');
             $table->foreignId('user_id')->constrained();
             $table->foreignId('customer_id')->constrained();

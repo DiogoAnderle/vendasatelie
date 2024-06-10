@@ -160,7 +160,7 @@ class NumbersInFull
 
             } else if (intval($mil) > 0) {
 
-                $converted .= sprintf('%smil ', self::convertGroup($mil));
+                $converted .= sprintf('%smil e ', self::convertGroup($mil));
 
             }
 
