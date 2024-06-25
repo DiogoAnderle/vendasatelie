@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Sale;
 
+use App\Models\Cart;
 use App\Models\Product;
 use App\Models\Sale;
 use Livewire\Attributes\On;
@@ -23,6 +24,7 @@ class SaleList extends Component
     public $dateEnd;
     public function render()
     {
+        Cart::clear();
         if ($this->search != '') {
             $this->resetPage();
         }

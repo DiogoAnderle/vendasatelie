@@ -69,9 +69,8 @@
                         </a>
                     </td>
                     <td>
-                        <a href="#" wire:click='edit({{ $sale->id }})' class="btn btn-primary btn-sm"
-                            title="Editar">
-                            <i class="far fa-edit" disabled></i>
+                        <a href="{{ route('sales.edit', $sale) }}" class="btn btn-primary btn-sm" title="Editar">
+                            <i class="far fa-edit"></i>
                         </a>
                     </td>
                     <td>

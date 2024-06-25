@@ -5,8 +5,18 @@
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="{{ route('home') }}" class="nav-link"><i class="nav-icon fas fa-home"></i> Home</a>
+            <a href="{{ route('home') }}" class="nav-link"><i class="nav-icon fas fa-solid fa-store"></i> Home</a>
         </li>
+
+        <li class="nav-item d-none d-sm-inline-block mr-2">
+            <a href="{{ route('sales.create') }}" class="nav-link btn btn-sm bg-purple"><i
+                    class="nav-icon fas fa-cart-plus"></i> Criar
+                Venda</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="{{ route('sales.list') }}" class="nav-link btn btn-sm btn-primary"><i
+                    class="nav-icon fas fa-cart-plus"></i> Listar
+                Venda</a>
 
     </ul>
 

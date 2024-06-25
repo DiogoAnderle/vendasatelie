@@ -27,7 +27,7 @@
 
                 <li class="nav-item">
                     <a href="{{ route('home') }}" class="nav-link">
-                        <i class="nav-icon fas fa-home"></i>
+                        <i class="nav-icon fas fa-solid fa-store"></i></i>
                         <p>
                             Inicio
                         </p>

@@ -12,8 +12,8 @@
             <i class="fas fa-shopping-basket ml-2" title="Numero items"></i>
             <span class="badge badge-pill bg-purple">{{ $totalItems }} </span>
 
-            <button wire:click="createSale" class="btn bg-purple btn-sm ml-2">
-                <i class="fas fa-cart-plus"></i> Criar Venda
+            <button wire:click="{{ isset($sale) ? 'editSale' : 'createSale' }}" class="btn bg-purple btn-sm ml-2">
+                <i class="fas fa-cart-plus"></i> {{ isset($sale) ? 'Editar Venda' : 'Criar Venda' }}
             </button>
         </div>
     </div>

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PdfController;
+use App\Livewire\Sale\SaleEdit;
 use App\Livewire\Shop\ShopComponent;
 use Illuminate\Support\Facades\Route;
 
@@ -51,6 +52,7 @@ Route::get('/clientes/{customer}', CustomerShow::class)->name('customers.show')-
 Route::get('/criar-vendas', SaleCreate::class)->name('sales.create')->middleware(['auth']);
 Route::get('/sales', SaleList::class)->name('sales.list')->middleware(['auth']);
 Route::get('/sales/{sale}', SaleShow::class)->name('sales.show')->middleware(['auth']);
+Route::get('/sales/{sale}/edit', SaleEdit::class)->name('sales.edit')->middleware(['auth']);
 
 Route::get('/shop', ShopComponent::class)->name('shop')->middleware(['auth']);
 
