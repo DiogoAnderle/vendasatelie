@@ -37,13 +37,13 @@ Auth::routes(['register' => false]);
 
 Route::get('/home', Home::class)->name('home')->middleware(['auth']);
 
-Route::get('/categorias', CategoryComponent::class)->name('categories')->middleware(['auth']);
-Route::get('/categorias/{category}', CategoryShow::class)->name('categories.show')->middleware(['auth']);
+Route::get('/categorias', CategoryComponent::class)->name('categories')->middleware(['auth', 'admin']);
+Route::get('/categorias/{category}', CategoryShow::class)->name('categories.show')->middleware(['auth', 'admin']);
 
 Route::get('/produtos', ProductComponent::class)->name('products')->middleware(['auth']);
 Route::get('/produtos/{product}', ProductShow::class)->name('products.show')->middleware(['auth']);
 
-Route::get('/usuarios', UserComponent::class)->name('users')->middleware(['auth']);
+Route::get('/usuarios', UserComponent::class)->name('users')->middleware(['auth', 'admin']);
 Route::get('/usuarios/{user}', UserShow::class)->name('users.show')->middleware(['auth']);
 
 Route::get('/clientes', CustomerComponent::class)->name('customers')->middleware(['auth']);

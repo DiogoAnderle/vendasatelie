@@ -13,7 +13,7 @@ use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-#[Title('Vendas')]
+#[Title('Criar Venda')]
 class SaleCreate extends Component
 {
     use WithPagination;

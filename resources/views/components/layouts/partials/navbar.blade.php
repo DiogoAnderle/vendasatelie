@@ -13,11 +13,12 @@
                     class="nav-icon fas fa-cart-plus"></i> Criar
                 Venda</a>
         </li>
-        <li class="nav-item d-none d-sm-inline-block">
-            <a href="{{ route('sales.list') }}" class="nav-link btn btn-sm btn-primary"><i
-                    class="nav-icon fas fa-cart-plus"></i> Listar
-                Venda</a>
-
+        @if (isAdmin())
+            <li class="nav-item d-none d-sm-inline-block">
+                <a href="{{ route('sales.list') }}" class="nav-link btn btn-sm btn-primary"><i
+                        class="nav-icon fas fa-cart-plus"></i> Listar
+                    Venda</a>
+        @endif
     </ul>
 
     <!-- Right navbar links -->
@@ -52,7 +53,7 @@
                     <a class="btn btn-default btn-flat float-right" href="{{ route('logout') }}"
                         onclick="event.preventDefault();
                           document.getElementById('logout-form').submit();">
-                        Salir
+                        Sair
                     </a>
 
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -63,10 +64,10 @@
         </li>
 
         <li class="nav-item">
-            <a class="nav-link" data-widget="fullscreen" href="#" role="button">
-                <i class="fas fa-expand-arrows-alt"></i>
-            </a>
+            <label for="dark-mode" class="switch mt-2">
+                <input type="checkbox" name="" id="dark-mode">
+                <span id="dark-icon" class="text-white"></span>
+            </label>
         </li>
-
     </ul>
 </nav>

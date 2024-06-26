@@ -5,9 +5,11 @@
                 <i class="far fa-edit"></i> Editar</a>
 
 
-            <a wire:click="$dispatch('delete',{id: {{ $product->id }}, eventName:'destroyProduct'})"
-                class="btn btn-danger">
-                <i class="far fa-trash-alt"></i> Excluir</a>
+            @if (isAdmin())
+                <a wire:click="$dispatch('delete',{id: {{ $product->id }}, eventName:'destroyProduct'})"
+                    class="btn btn-danger">
+                    <i class="far fa-trash-alt"></i> Excluir</a>
+            @endif
 
             <a href="{{ route('products') }}" class="btn btn-primary"><i class="fas fa-arrow-circle-left"></i> Voltar</a>
         </x-slot:cardTools>

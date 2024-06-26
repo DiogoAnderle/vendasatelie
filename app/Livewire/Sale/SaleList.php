@@ -10,7 +10,7 @@ use Livewire\Component;
 use Livewire\Attributes\Title;
 use Livewire\WithPagination;
 
-#[Title('Vendas')]
+#[Title('Listar Vendas')]
 class SaleList extends Component
 {
 

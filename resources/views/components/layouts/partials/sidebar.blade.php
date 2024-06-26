@@ -26,7 +26,7 @@
                with font-awesome or any other icon font library -->
 
                 <li class="nav-item">
-                    <a href="{{ route('home') }}" class="nav-link">
+                    <a href="{{ route('home') }}" class="nav-link {{ $title == 'Inicio' ? 'active' : '' }}">
                         <i class="nav-icon fas fa-solid fa-store"></i></i>
                         <p>
                             Inicio
@@ -34,7 +34,10 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="#"
+                        class="nav-link
+                    @if ($title == 'Listar Vendas' || $title == 'Criar Venda') active @endif
+                    ">
                         <i class="nav-icon fas fa-shopping-cart"></i>
                         <p>
                             Vendas
@@ -43,33 +46,34 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item ml-3">
-                            <a href="{{ route('sales.create') }}" class="nav-link">
-                                <i class="fas fa-cart-plus nav-icon"></i>
+                            <a href="{{ route('sales.create') }}"
+                                class="nav-link {{ $title == 'Criar Venda' ? 'active' : '' }}">
+                                <i class="fas fa-cart-plus nav-icon "></i>
                                 <p>Criar venda</p>
                             </a>
                         </li>
-
                         <li class="nav-item ml-3">
-                            <a href="{{ route('sales.list') }}" class="nav-link ">
+                            <a href="{{ route('sales.list') }}"
+                                class="nav-link {{ $title == 'Listar Vendas' ? 'active' : '' }} ">
                                 <i class="fas fa-shopping-cart nav-icon"></i>
                                 <p>Mostrar vendas</p>
                             </a>
                         </li>
-
                     </ul>
                 </li>
-
+                @if (isAdmin())
+                    <li class="nav-item">
+                        <a href="{{ route('categories') }}"
+                            class="nav-link {{ $title == 'Categorias' ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-th-large"></i>
+                            <p>
+                                Categorias
+                            </p>
+                        </a>
+                    </li>
+                @endif
                 <li class="nav-item">
-                    <a href="{{ route('categories') }}" class="nav-link">
-                        <i class="nav-icon fas fa-th-large"></i>
-                        <p>
-                            Categorias
-                        </p>
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a href="{{ route('products') }}" class="nav-link">
+                    <a href="{{ route('products') }}" class="nav-link {{ $title == 'Produtos' ? 'active' : '' }}">
                         <i class="nav-icon fas fa-tshirt"></i>
                         <p>
                             Produtos
@@ -77,32 +81,34 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('customers') }}" class="nav-link">
+                    <a href="{{ route('customers') }}" class="nav-link {{ $title == 'Clientes' ? 'active' : '' }}">
                         <i class="nav-icon fas fa-user-friends"></i>
                         <p>
                             Clientes
                         </p>
                     </a>
                 </li>
+                @if (isAdmin())
+                    <li class="nav-item">
+                        <a href="{{ route('users') }}" class="nav-link {{ $title == 'Usuários' ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-users"></i>
+                            <p>
+                                Usuários
+                            </p>
+                        </a>
+                    </li>
 
-                <li class="nav-item">
-                    <a href="{{ route('users') }}" class="nav-link">
-                        <i class="nav-icon fas fa-users"></i>
-                        <p>
-                            Usuários
-                        </p>
-                    </a>
-                </li>
 
-                <li class="nav-item">
-                    <a href="{{ route('shop') }}" class="nav-link">
-                        <i class="nav-icon fas fa-store-alt"></i>
-                        <p>
-                            Loja
-                        </p>
-                    </a>
-                </li>
 
+                    <li class="nav-item">
+                        <a href="{{ route('shop') }}" class="nav-link {{ $title == 'Shop' ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-store-alt"></i>
+                            <p>
+                                Loja
+                            </p>
+                        </a>
+                    </li>
+                @endif
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

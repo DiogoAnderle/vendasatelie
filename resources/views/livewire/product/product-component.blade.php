@@ -37,12 +37,14 @@
                         <a wire:click="edit({{ $product->id }})"class="btn btn-sm btn-primary">
                             <i class="far fa-edit"></i></a>
                     </td>
-                    <td title="Excluir">
-                        <a wire:click="$dispatch('delete',{id: {{ $product->id }}, eventName:'destroyProduct'})"
-                            class="btn btn-sm btn-danger">
-                            <i class="far fa-trash-alt"></i>
-                        </a>
-                    </td>
+                    @if (isAdmin())
+                        <td title="Excluir">
+                            <a wire:click="$dispatch('delete',{id: {{ $product->id }}, eventName:'destroyProduct'})"
+                                class="btn btn-sm btn-danger">
+                                <i class="far fa-trash-alt"></i>
+                            </a>
+                        </td>
+                    @endif
 
                 </tr>
             @empty

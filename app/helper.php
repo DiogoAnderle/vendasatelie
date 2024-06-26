@@ -17,3 +17,8 @@ function numbersInFull($number)
 {
     return App\Models\NumbersInFull::converter($number, 'reais', false, 'centavos');
 }
+
+function isAdmin()
+{
+    return auth()->user()->admin;
+}

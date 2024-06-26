@@ -40,7 +40,8 @@
             <div class="icon">
                 <i class="fas fa-shopping-basket"></i>
             </div>
-            <a href="" class="small-box-footer">Ir a ventas <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="{{ route('sales.list') }}" class="small-box-footer">Ir a ventas <i
+                    class="fas fa-arrow-circle-right"></i></a>
         </div>
     </div>
     <!-- ./col -->
