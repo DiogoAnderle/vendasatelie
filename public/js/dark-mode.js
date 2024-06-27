@@ -5,6 +5,7 @@ if (currentTheme === 'dark') {
     $("#dark-icon").html('<i class="fas fa-moon animate__flipInX"></i>')
 } else {
     $("#body").removeClass("dark-mode")
+    $("#dark-icon").html('<i class="<i class="fas fa-moon animate__flipOutX"></i>"></i>')
     $("#dark-icon").html('<i class="fas fa-solid fa-sun"></i>')
 }
 

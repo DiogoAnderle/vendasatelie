@@ -32,9 +32,6 @@ class SaleCreate extends Component
 
     public function render()
     {
-        if ($this->search = '') {
-            $this->resetPage();
-        }
 
         $this->totalRegistros = Product::count();
 

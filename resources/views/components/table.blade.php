@@ -10,7 +10,12 @@
         </select>
         <span> Registros</span>
     </div>
-    <div>
+    <div class="d-flex align-items-center justify-content-between">
+
+        <div wire:loading wire:target='search' class="spinner-grow text-primary mr-3" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+
         <input class="form-control" wire:model.live="search" type="text" id="searchTable" placeholder="Pesquisar...">
     </div>
 </div>
