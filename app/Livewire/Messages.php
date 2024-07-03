@@ -11,11 +11,13 @@ class Messages extends Component
     {
         return view('livewire.messages');
     }
+
     #[On('msg')]
-    public function messages($msg, $type = "success", $sale = null)
+    public function messages($msg, $type = "success", $icon = null, $sale = null)
     {
         session()->flash('msg', $msg);
         session()->flash('type', $type);
+        session()->flash('icon', $icon);
         session()->flash('sale', $sale);
     }
 }

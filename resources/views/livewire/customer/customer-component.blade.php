@@ -42,7 +42,7 @@
                         </a>
                     </td>
                     <td>
-                        <a wire:click="$dispatch('delete',{id: {{ $customer->id }}, eventName:'destroyCustomer'})"
+                        <a wire:click="$dispatch('delete',{id: {{ $customer->id }},name: '{{ $customer->name }}', eventName:'destroyCustomer'})"
                             class="btn btn-danger btn-sm" title="Excluir">
                             <i class="far fa-trash-alt"></i>
                         </a>
@@ -64,7 +64,6 @@
         </x-slot>
 
         @include('livewire.customer.modal')
-
     </x-card>
 
 

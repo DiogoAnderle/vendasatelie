@@ -7,6 +7,8 @@
     <title>{{ $title ?? config('app.name') }}</title>
     @include('components.layouts.partials.styles')
 
+    @laravelPWA
+
 </head>
 
 <body class="hold-transition sidebar-collapse sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed"
@@ -54,18 +56,17 @@
 
     @include('components.layouts.partials.scripts')
     <script>
+        document.addEventListener('livewire:initialized', () => {
+            Livewire.on('msg', (event) => {
+                setTimeout(() => {
+                    $('.alert').alert('close')
+                }, 3000);
+            })
+        })
+
         document.addEventListener('livewire:init', () => {
             Livewire.on('close-modal', (idModal) => {
                 $('#' + idModal).modal('hide')
-
-                let messages = document.getElementById('messages')
-
-                function removeMessages() {
-                    const messages = document.getElementById('messages');
-                    setTimeout(function() {
-                        messages.remove()
-                    }, 1000);
-                }
             })
         })
 
@@ -77,7 +78,7 @@
         document.addEventListener('livewire:init', () => {
             Livewire.on('delete', (event) => {
                 Swal.fire({
-                    title: "Tem certeza?",
+                    title: "Tem certeza que deseja excluir " + event.name + ' ?',
                     text: "Essa ação não pode ser desfeita!",
                     icon: "warning",
                     showCancelButton: true,
@@ -95,6 +96,7 @@
             })
         })
     </script>
+    
 </body>
 
 </html>

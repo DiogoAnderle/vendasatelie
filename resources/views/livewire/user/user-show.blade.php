@@ -16,14 +16,14 @@
 
                         <ul class="list-group mb-3">
                             <li class="list-group-item">
-                                <b>E-mail:</b> <a class="float-right text-white">{{ $user->email }}</a>
+                                <b>E-mail:</b> <a class="float-right text-white userdata">{{ $user->email }}</a>
                             </li>
                             <li class="list-group-item">
-                                <b>Estado:</b> <a class="float-right text-white">{!! $user->activeLabel !!}</a>
+                                <b>Estado:</b> <a class="float-right text-white userdata">{!! $user->activeLabel !!}</a>
                             </li>
                             <li class="list-group-item">
                                 <b>Data de Cadastro:</b> <a
-                                    class="float-right text-white">{{ date('d/m/Y', strtotime($user->created_at)) }}</a>
+                                    class="float-right text-white userdata">{{ date('d/m/Y', strtotime($user->created_at)) }}</a>
                             </li>
 
                         </ul>

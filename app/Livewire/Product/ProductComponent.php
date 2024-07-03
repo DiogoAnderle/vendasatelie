@@ -115,7 +115,7 @@ class ProductComponent extends Component
         }
 
         $this->dispatch('close-modal', 'modalProduct');
-        $this->dispatch('msg', 'Produto criado com sucesso.');
+        $this->dispatch('msg', 'Produto criado com sucesso.','success', '<i class="fas fa-check-circle"></i>');
         $this->cleanFormFields();
     }
 
@@ -174,7 +174,7 @@ class ProductComponent extends Component
         }
 
         $this->dispatch('close-modal', 'modalProduct');
-        $this->dispatch('msg', 'Produto editado com sucesso.');
+        $this->dispatch('msg', 'Produto editado com sucesso.','success', '<i class="fas fa-check-circle"></i>');
         $this->cleanFormFields();
     }
 
@@ -190,7 +190,7 @@ class ProductComponent extends Component
 
         $product->delete();
 
-        $this->dispatch('msg', 'Produto removido com sucesso.');
+        $this->dispatch('msg', 'Produto removido com sucesso.','success', '<i class="fas fa-check-circle"></i>');
 
     }
 

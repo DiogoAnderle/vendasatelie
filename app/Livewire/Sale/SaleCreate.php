@@ -72,7 +72,6 @@ class SaleCreate extends Component
             $sale->sale_date = date('Y-m-d');
             $sale->save();
 
-            //global $cart;
             //agregate items on sale
             foreach (\Cart::session(userID())->getContent() as $product) {
                 $item = new Item();
@@ -95,7 +94,7 @@ class SaleCreate extends Component
 
             Cart::clear();
             $this->reset(['additionOrDiscount', 'netValue', 'customer']);
-            $this->dispatch('msg', 'Venda Criada com sucesso', 'success', $sale->id);
+            $this->dispatch('msg', 'Venda criada com sucesso.', 'success', '<i class="fas fa-check-circle"></i>');;
 
         });
     }
@@ -146,7 +145,7 @@ class SaleCreate extends Component
 
         $this->netValue = 0;
         $this->additionOrDiscount = 0;
-        $this->dispatch('msg', 'Venda Cancelada');
+        $this->dispatch('msg', 'Venda cancelada com sucesso.', 'success', '<i class="fas fa-check-circle"></i>');
         $this->dispatch('refreshProducts');
 
     }

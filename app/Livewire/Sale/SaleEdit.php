@@ -74,7 +74,7 @@ class SaleEdit extends Component
             $itemsIds += [$item->id => ['quantity' => $product->quantity, 'date_item_sale' => date('Y-m-d')]];
         }
         $this->sale->items()->sync($itemsIds);
-        $this->dispatch('msg', 'Venda editada corretamente', 'success', $this->sale->id);
+        $this->dispatch('msg', 'Venda editada corretamente', 'success', '<i class="fas fa-check-circle"></i>');
 
     }
 

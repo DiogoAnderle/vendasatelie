@@ -21,9 +21,7 @@
             </div>
         </div>
 
-        <x-slot:cardFooter>
-
-        </x-slot>
+        
     </x-card>
 
 </div>

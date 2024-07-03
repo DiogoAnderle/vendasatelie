@@ -1,6 +1,7 @@
 <div>
     <x-card cardTitle="Lista de Categorias ({{ $this->totalRegistros }})">
         <x-slot:cardTools>
+
             <a class="btn btn-primary" wire:click='create'>
                 <i class="fas fa-plus-circle"></i> Cadastrar Categoria
             </a>
@@ -24,7 +25,7 @@
                             <i class="far fa-edit"></i></a>
                     </td>
                     <td title="Excluir">
-                        <a wire:click="$dispatch('delete',{id: {{ $category->id }}, eventName:'destroyCategory'})"
+                        <a wire:click="$dispatch('delete',{id: {{ $category->id }},name: '{{ $category->name }}', eventName:'destroyCategory'})"
                             class="btn btn-sm btn-danger">
                             <i class="far fa-trash-alt"></i>
                         </a>
@@ -61,5 +62,4 @@
             </form>
         </x-modal>
     </x-card>
-
 </div>

@@ -28,12 +28,10 @@
             {{-- Products --}}
             <div class="col-md-6">
                 @include('livewire.sale.products-list')
+                
             </div>
         </div>
-
-        <x-slot:cardFooter>
-
-        </x-slot>
     </x-card>
+
 
 </div>
