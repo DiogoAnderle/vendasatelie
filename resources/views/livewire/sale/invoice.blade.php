@@ -65,7 +65,7 @@
         <tr>
             <td width="25%">
                 <img src="{{ public_path() . '/' . 'storage/' . $shop->image->url }}" alt="" srcset=""
-                    width="200px">
+                    width="150px">
             </td>
             <td width="45%" style="text-align: center;">
                 <h1>{{ $shop->name }}</h1>
@@ -154,6 +154,11 @@
             @empty
                 <td colspan="5">Sem Registros</td>
             @endforelse
+            <tr>
+                <td colspan="3"></td>
+                <td><b>Acréscimo / Desconto:</b></td>
+                <td><b>{{ currencyBRLFormat($sale->addition_discount) }}</b></td>
+            </tr>
             <tr>
                 <td colspan="3"></td>
                 <td><b>Total:</b></td>

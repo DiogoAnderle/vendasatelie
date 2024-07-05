@@ -10,7 +10,7 @@
                 <th>#</th>
                 <th>Imagem</th>
                 <th>Nome</th>
-                <th>Category</th>
+                <th>Categoria</th>
                 <th>Preço de Venda</th>
                 <th>Estoque</th>
                 <th>Estado</th>
@@ -39,7 +39,7 @@
                     </td>
                     @if (isAdmin())
                         <td title="Excluir">
-                            <a wire:click="$dispatch('delete',{id: {{ $product->id }}, eventName:'destroyProduct'})"
+                            <a wire:click="$dispatch('delete',{id: {{ $product->id }},name:'{{ $product->name }}', eventName:'destroyProduct'})"
                                 class="btn btn-sm btn-danger">
                                 <i class="far fa-trash-alt"></i>
                             </a>
@@ -62,5 +62,6 @@
 
         @include('livewire.product.modal')
     </x-card>
+
 
 </div>

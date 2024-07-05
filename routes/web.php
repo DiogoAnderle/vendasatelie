@@ -1,8 +1,7 @@
 <?php
 
 use App\Http\Controllers\PdfController;
-use App\Livewire\Sale\SaleEdit;
-use App\Livewire\Shop\ShopComponent;
+
 use Illuminate\Support\Facades\Route;
 
 use App\Livewire\Category\CategoryComponent;
@@ -16,6 +15,9 @@ use App\Livewire\Customer\CustomerShow;
 use App\Livewire\Sale\SaleCreate;
 use App\Livewire\Sale\SaleList;
 use App\Livewire\Sale\SaleShow;
+use App\Livewire\Email\EmailComponent;
+use App\Livewire\Sale\SaleEdit;
+use App\Livewire\Shop\ShopComponent;
 use App\Livewire\Home\Home;
 
 /*
@@ -30,7 +32,7 @@ use App\Livewire\Home\Home;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth/login');
 });
 
 Auth::routes(['register' => false]);
@@ -57,3 +59,5 @@ Route::get('/sales/{sale}/edit', SaleEdit::class)->name('sales.edit')->middlewar
 Route::get('/shop', ShopComponent::class)->name('shop')->middleware(['auth']);
 
 Route::get('/sales/invoice/{sale}', [PdfController::class, 'invoicePdf'])->name('sales.invoice')->middleware(['auth']);
+
+Route::get('/email', EmailComponent::class)->name('emails')->middleware(['auth']);

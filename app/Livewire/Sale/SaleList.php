@@ -29,8 +29,13 @@ class SaleList extends Component
             $this->resetPage();
         }
         $this->totalRegistros = Sale::count();
-
-        $salesQuery = Sale::where('id', 'like', '%' . $this->search . '%');
+        $salesQuery =Sale::where(function($q){
+                        $q->where('id', 'LIKE', '%' .$this->search . '%');
+                        $q->orWhere('net_value', 'like', '%' . $this->search . '%');
+                        $q->orWhereHas('customer', function($q) {
+                            $q->where('name', 'LIKE', '%' .$this->search . '%');
+                        });
+                    });
 
         if ($this->dateStart && $this->dateEnd) {
             $salesQuery = $salesQuery->whereBetween(

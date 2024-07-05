@@ -99,7 +99,7 @@ class ProductShow extends Component
         }
 
         $this->dispatch('close-modal', 'modalProduct');
-        $this->dispatch('msg', 'Produto editado com sucesso.');
+        $this->dispatch('msg', 'Produto editado com sucesso.','success', '<i class="fas fa-check-circle"></i>');
         $this->dispatch('edited');
         $this->cleanFormFields();
     }
@@ -117,7 +117,7 @@ class ProductShow extends Component
 
         $product->delete();
 
-        return redirect()->to('/produtos')->with('msg', 'Produto removido com sucesso.');
+        return redirect()->to('/produtos')->with(['msg'=>'Produto removido com sucesso.','type'=>'success','icon'=>'<i class="fas fa-check-circle"></i>']);
     }
 
     public function cleanFormFields()

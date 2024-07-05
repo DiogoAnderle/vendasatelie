@@ -2,6 +2,7 @@
 
 namespace App\Livewire\User;
 
+use App\Models\Sale;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -86,7 +87,7 @@ class UserComponent extends Component
         }
 
         $this->dispatch('close-modal', 'modalUser');
-        $this->dispatch('msg', 'Usuário criado com sucesso.');
+        $this->dispatch('msg', 'Usuário criado com sucesso.','success', '<i class="fas fa-check-circle"></i>');
         $this->cleanFormFields();
     }
 
@@ -142,7 +143,7 @@ class UserComponent extends Component
         }
 
         $this->dispatch('close-modal', 'modalUser');
-        $this->dispatch('msg', 'Usuário editado com sucesso.');
+        $this->dispatch('msg', 'Usuário editado com sucesso.','success', '<i class="fas fa-check-circle"></i>');
         $this->cleanFormFields();
     }
 
@@ -153,16 +154,20 @@ class UserComponent extends Component
     public function destroy($id)
     {
         $user = User::findOrFail($id);
+        $hasSale = Sale::where('user_id', '=', $id)->get();
+        if ($hasSale->count() > 0) {
+            $this->dispatch('msg', 'Usuário não pode ser removido. Possui ' . $hasSale->count() . ' vendas vinculadas', 'warning', '<i class="fas fa-exclamation-triangle"></i>');
+            return;
 
-        if ($user->image != null) {
-            Storage::delete('public/' . $user->image->url);
-            $user->image()->delete();
+        } else {
+            if ($user->image != null) {
+                Storage::delete('public/' . $user->image->url);
+                $user->image()->delete();
+            }
+
+            $user->delete();
+            $this->dispatch('msg', 'Usuário removido com sucesso.','success', '<i class="fas fa-check-circle"></i>');
         }
-
-        $user->delete();
-
-        $this->dispatch('msg', 'Usuário removido com sucesso.');
-
     }
 
 

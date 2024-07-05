@@ -3,6 +3,7 @@
 namespace App\Livewire\Customer;
 
 use App\Models\Customer;
+use App\Models\Sale;
 use Illuminate\Validation\Rule;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Title;
@@ -34,7 +35,7 @@ class CustomerComponent extends Component
         $this->totalRegistros = Customer::count();
 
         $customers = Customer::where('name', 'like', '%' . $this->search . '%')->orWhere('id', 'like', '%' . $this->search . '%')
-            ->orderBy('id', 'desc')
+            ->orderBy('name', 'asc')
             ->paginate($this->quantity);
 
         return view('livewire.customer.customer-component', compact('customers'));
@@ -121,8 +122,15 @@ class CustomerComponent extends Component
     public function destroy($id)
     {
         $customer = Customer::findOrFail($id);
-        $customer->delete();
-        $this->dispatch('msg', 'Cliente removido com sucesso.');
+        $hasSale = Sale::where('customer_id', '=', $id)->get();
+        if ($hasSale->count() > 0) {
+            $this->dispatch('msg', 'Cliente não pode ser removido. Possui ' . $hasSale->count() . ' compras vinculadas', 'warning', '<i class="fas fa-exclamation-triangle"></i>');
+            return;
+
+        } else {
+            $customer->delete();
+            $this->dispatch('msg', 'Cliente removido com sucesso.', 'success', '<i class="fas fa-check-circle"></i>');
+        }
     }
 
     public function cleanFormFields()

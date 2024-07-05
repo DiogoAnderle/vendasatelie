@@ -53,16 +53,22 @@ class ProductComponent extends Component
 
     #[Computed()]
     public function products()
-    {
+    { 
+        $productsQuery = new Product();
+
         return Product::where('name', 'like', '%' . $this->search . '%')
             ->orWhere('id', 'like', '%' . $this->search . '%')
-            ->orWhere('category_id', 'like', '%' . $this->search . '%')
+            ->orWhere('name', 'like', '%' . $this->search . '%')
             ->orWhere('description', 'like', '%' . $this->search . '%')
             ->orWhere('purchase_price', 'like', '%' . $this->search . '%')
             ->orWhere('sale_price', 'like', '%' . $this->search . '%')
             ->orWhere('active', 'like', '%' . $this->search == 'ativo' ? 1 : 0 . '%')
-            ->orderBy('id', 'asc')
+            ->orWhereHas('category', function($q) {
+                $q->where('name', 'LIKE', '%' .$this->search . '%');
+            })->orderBy('id', 'asc')
             ->paginate($this->quantity);
+
+        
     }
 
     public function create()
@@ -115,7 +121,7 @@ class ProductComponent extends Component
         }
 
         $this->dispatch('close-modal', 'modalProduct');
-        $this->dispatch('msg', 'Produto criado com sucesso.');
+        $this->dispatch('msg', 'Produto criado com sucesso.','success', '<i class="fas fa-check-circle"></i>');
         $this->cleanFormFields();
     }
 
@@ -174,7 +180,7 @@ class ProductComponent extends Component
         }
 
         $this->dispatch('close-modal', 'modalProduct');
-        $this->dispatch('msg', 'Produto editado com sucesso.');
+        $this->dispatch('msg', 'Produto editado com sucesso.','success', '<i class="fas fa-check-circle"></i>');
         $this->cleanFormFields();
     }
 
@@ -190,7 +196,7 @@ class ProductComponent extends Component
 
         $product->delete();
 
-        $this->dispatch('msg', 'Produto removido com sucesso.');
+        $this->dispatch('msg', 'Produto removido com sucesso.','success', '<i class="fas fa-check-circle"></i>');
 
     }
 

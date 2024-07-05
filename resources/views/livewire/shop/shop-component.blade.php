@@ -46,6 +46,7 @@
 
 
         {{-- MODAL EDITAR --}}
+
         @include('livewire.shop.modal')
 
     </x-card>

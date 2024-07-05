@@ -1,6 +1,9 @@
 <div>
+
     @if (session()->has('msg'))
+
         <div class="alert alert-{{ session('type') }} alert-dismissible fade show" id="messages" role="alert">
+            <strong>{!! session('icon') !!}</strong>
             <strong>Mensagem!</strong> {{ session('msg') }}
 
             @if (session()->has('sale'))
@@ -15,6 +18,9 @@
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
+    
+
     @endif
+   
 
 </div>

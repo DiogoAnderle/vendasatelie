@@ -3,6 +3,7 @@
 namespace App\Livewire\Category;
 
 use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Validation\Rule;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -53,7 +54,6 @@ class CategoryComponent extends Component
     //Criar categoria
     public function store()
     {
-        // dump('Criar Categoria');
         $rules = [
             'name' => 'required|min:3|max:255|unique:categories'
 
@@ -72,7 +72,7 @@ class CategoryComponent extends Component
         $category->save();
 
         $this->dispatch('close-modal', 'modalCategory');
-        $this->dispatch('msg', 'Categoria criada com sucesso.');
+        $this->dispatch('msg', 'Categoria criada com sucesso.', 'success', '<i class="fas fa-check-circle"></i>');
         $this->reset(['name']);
     }
 
@@ -101,7 +101,7 @@ class CategoryComponent extends Component
         $category->update();
 
         $this->dispatch('close-modal', 'modalCategory');
-        $this->dispatch('msg', 'Categoria editada com sucesso.');
+        $this->dispatch('msg', 'Categoria editada com sucesso.', 'success', '<i class="fas fa-check-circle"></i>');
         $this->reset(['name']);
     }
 
@@ -109,7 +109,14 @@ class CategoryComponent extends Component
     public function destroy($id)
     {
         $category = Category::findOrFail($id);
-        $category->delete();
-        $this->dispatch('msg', 'Categoria removida com sucesso.');
+        $hasProducts = Product::where('category_id', '=', $id)->get();
+        if ($hasProducts->count() > 0) {
+            $this->dispatch('msg', 'Categoria não pode ser removida. Possui ' . $hasProducts->count() . ' produtos vinculados', 'warning', '<i class="fas fa-exclamation-triangle"></i>');
+            return;
+        } else {
+            $category->delete();
+            $this->dispatch('msg', 'Categoria removida com sucesso.', 'success', '<i class="fas fa-check-circle"></i>');
+        }
+
     }
 }
