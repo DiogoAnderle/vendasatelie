@@ -29,8 +29,7 @@ class MessageMail extends Mailable
     {
         return new Envelope(
             from: new Address($this->data['fromEmail'],$this->data['fromName']),
-            subject: $this->data['subject'],
-        );
+            subject: $this->data['subject']);
     }
 
     /**

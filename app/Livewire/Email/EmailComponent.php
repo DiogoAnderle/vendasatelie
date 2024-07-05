@@ -54,9 +54,9 @@ class EmailComponent extends Component
                 
             ]));
             $this->dispatch('msg', 'Email enviado com sucesso','success');
-            dump('Email sent', $sendEmail);;
+            dump('Email sent', $sendEmail);
         } catch (\Throwable $th) {
-            $this->dispatch('error', $th);
+            $this->dispatch('msg', $th,'danger');
         }
        
         
