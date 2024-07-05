@@ -29,6 +29,7 @@ class SaleList extends Component
             $this->resetPage();
         }
         $this->totalRegistros = Sale::count();
+        
         $salesQuery =Sale::where(function($q){
                         $q->where('id', 'LIKE', '%' .$this->search . '%');
                         $q->orWhere('net_value', 'like', '%' . $this->search . '%');

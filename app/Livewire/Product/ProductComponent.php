@@ -54,8 +54,6 @@ class ProductComponent extends Component
     #[Computed()]
     public function products()
     { 
-        $productsQuery = new Product();
-
         return Product::where('name', 'like', '%' . $this->search . '%')
             ->orWhere('id', 'like', '%' . $this->search . '%')
             ->orWhere('name', 'like', '%' . $this->search . '%')
