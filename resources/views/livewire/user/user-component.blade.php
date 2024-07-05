@@ -60,4 +60,38 @@
         </x-slot>
         @include('livewire.user.modal')
     </x-card>
+    @section('scripts')
+    <script>
+
+        const passwordInput = $('#password')
+        const showPasswordEye = $('#showPassord')
+        showPasswordEye.click(function(){
+            if(passwordInput.attr('type') == 'password'){
+                passwordInput.attr('type','text')
+                showPasswordEye.removeClass('fa-eye')
+                showPasswordEye.removeClass('animate__fadeIn')
+                setTimeout(() => {
+                    showPasswordEye.addClass('fa-eye-slash')
+                }, 3);
+                setTimeout(() => {
+                    showPasswordEye.addClass('animate__fadeIn')
+                }, 3.5);
+               
+                
+            }else{
+                passwordInput.attr('type','password')
+                showPasswordEye.removeClass('fa-eye-slash')
+                showPasswordEye.removeClass('animate__fadeIn')
+                setTimeout(() => {
+                    showPasswordEye.addClass('fa-eye')
+                }, 3);
+                setTimeout(() => {
+                    showPasswordEye.addClass('animate__fadeIn')
+                }, 3.5);
+            }
+            
+
+        })
+    </script>
+    @endsection
 </div>

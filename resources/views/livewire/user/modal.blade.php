@@ -21,9 +21,10 @@
             </div>
 
             {{-- Input Senha --}}
-            <div class="form-group col-12 col-md-6">
+            <div class="form-group col-12 col-md-6 position-relative">
                 <label for="password">Senha:</label>
                 <input wire:model='password' type="password" class="form-control" placeholder="Senha" id="password">
+                <i class="fas fa-eye position-absolute text-blue animate__animated " id="showPassord" style="top:60%; right:15px;"></i>
                 @error('password')
                     <div class="alert alert-danger w-100 mt-2">{{ $message }}</div>
                 @enderror

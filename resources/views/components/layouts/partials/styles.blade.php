@@ -12,6 +12,10 @@
 
 <!-- Sweet Alert -->
 <link rel="stylesheet" href="{{ asset('plugins/sweetalert2/sweetalert2.css') }}">
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
 <!-- Sweet Alert -->
 <link rel="stylesheet" href="{{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
 

@@ -12,6 +12,8 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+    
+    @laravelPWA
 
     @include('components.layouts.partials.styles')
 </head>
@@ -75,7 +77,7 @@
             @yield('content')
         </main>
     </div>
-
-
+    @include('components.layouts.partials.scripts')
+    
 </body>
 </html>

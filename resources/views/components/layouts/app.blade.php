@@ -7,6 +7,8 @@
     <title>{{ $title ?? config('app.name') }}</title>
     @include('components.layouts.partials.styles')
 
+    @laravelPWA
+
 </head>
 
 <body class="hold-transition sidebar-collapse sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed"

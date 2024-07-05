@@ -31,10 +31,11 @@
                                 <label for="password"
                                     class="col-md-4 col-form-label text-md-end">{{ __('Senha') }}</label>
 
-                                <div class="col-md-6">
+                                <div class="col-md-6 position-relative">
                                     <input id="password" type="password"
                                         class="form-control @error('password') is-invalid @enderror" name="password"
                                         required autocomplete="current-password">
+                                        <i class="fas fa-eye position-absolute text-blue animate__animated " id="showPassord" style="top:25%; right:15px;"></i>
 
                                     @error('password')
                                         <span class="invalid-feedback" role="alert">
@@ -76,4 +77,38 @@
             </div>
         </div>
     </div>
+    @section('scripts')
+    <script>
+
+        const passwordInput = $('#password')
+        const showPasswordEye = $('#showPassord')
+        showPasswordEye.click(function(){
+            if(passwordInput.attr('type') == 'password'){
+                passwordInput.attr('type','text')
+                showPasswordEye.removeClass('fa-eye')
+                showPasswordEye.removeClass('animate__fadeIn')
+                setTimeout(() => {
+                    showPasswordEye.addClass('fa-eye-slash')
+                }, 3);
+                setTimeout(() => {
+                    showPasswordEye.addClass('animate__fadeIn')
+                }, 3.5);
+               
+                
+            }else{
+                passwordInput.attr('type','password')
+                showPasswordEye.removeClass('fa-eye-slash')
+                showPasswordEye.removeClass('animate__fadeIn')
+                setTimeout(() => {
+                    showPasswordEye.addClass('fa-eye')
+                }, 3);
+                setTimeout(() => {
+                    showPasswordEye.addClass('animate__fadeIn')
+                }, 3.5);
+            }
+            
+
+        })
+    </script>
+    @endsection
 @endsection

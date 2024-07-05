@@ -61,3 +61,6 @@ Route::get('/shop', ShopComponent::class)->name('shop')->middleware(['auth']);
 Route::get('/sales/invoice/{sale}', [PdfController::class, 'invoicePdf'])->name('sales.invoice')->middleware(['auth']);
 
 Route::get('/email', EmailComponent::class)->name('emails')->middleware(['auth']);
+Route::get('/offline', function(){
+    return view('vendor.laravelpwa.offline');
+});
