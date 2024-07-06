@@ -42,9 +42,9 @@ class EmailComponent extends Component
         
         // $email->save();
         try {
-            $sendEmail = Mail::to(
+            Mail::to(
                 'anderle88@gmail.com',
-                'Diogo Anderle',
+                '4 de Nós Ateliê',
             )->send(new MessageMail([
                 'fromName' => auth()->user()->name,
                 'fromEmail' => auth()->user()->email,
@@ -54,9 +54,12 @@ class EmailComponent extends Component
                 
             ]));
             $this->dispatch('msg', 'Email enviado com sucesso','success');
+             $this->reset(['subject']);
+            $this->reset(['message']);
         } catch (\Throwable $th) {
-            $this->dispatch('error', $th);
+            $this->dispatch('msg', $th->getMessage(),'danger');
         }
+
        
         
     }
