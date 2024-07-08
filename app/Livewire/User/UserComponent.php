@@ -35,17 +35,35 @@ class UserComponent extends Component
     public $active = true;
     public $image;
     public $imageModel;
+    protected $rules = [
+        'name' => 'required|min:3|max:255',
+        'email' => 'required|email|max:255|unique:users',
+        'password' => 'required|min:5',
+        're_password' => 'required|same:password',
+        'image' => 'image|max:1024|nullable',
+
+        ];
+    protected$messages = [
+        're_password.required' => 'Campo confirmar senha é obrigatório conferem',
+        're_password.same' => 'Campo senha e confirmar senha não conferem',
+        "email.unique" => 'Email já utilizado.',
+        ];
 
     public function render()
     {
         $this->totalRegistros = User::count();
 
         $users = User::where('name', 'like', '%' . $this->search . '%')
-            ->orderBy('id', 'desc')
+            ->orderBy('name', 'asc')
             ->paginate($this->quantity);
 
         return view('livewire.user.user-component', compact('users'));
     }
+
+    public function updated($propertyName){
+        $this->validateOnly($propertyName);
+    }
+    
     public function create()
     {
         $this->Id = 0;
@@ -55,21 +73,8 @@ class UserComponent extends Component
 
     public function store()
     {
-        $rules = [
-            'name' => 'required|min:3|max:255',
-            'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|min:5',
-            're_password' => 'required|same:password',
-            'image' => 'image|max:1024|nullable',
-
-        ];
-        $messages = [
-            're_password.required' => 'Campo confirmar senha é obrigatório conferem',
-            're_password.same' => 'Campo senha e confirmar senha não conferem',
-            "email.unique" => 'Email já utilizado.',
-        ];
-
-        $this->validate($rules, $messages);
+    
+        $this->validate();
 
         $user = new User();
         $user->name = $this->name;

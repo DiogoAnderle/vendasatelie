@@ -7,14 +7,6 @@
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="card card-primary card-outline">
                 <div class="card-body">
-                    <div class="form-group">
-                        <label for="name" class="message">Nome:</label>
-                        <input wire:model="name" id="name" class="form-control" value="{{$authName}}" readonly>
-                    </div>
-                    <div class="form-group">
-                        <label for="email" class="message">E-mail:</label>
-                        <input wire:model="email" id="email" class="form-control" value="{{$authEmail}}" readonly>
-                    </div>
                         <div class="form-group">
                         <label for="subject" class="message">Assunto:</label>
                         <input wire:model.lazy="subject" id="subject" class="form-control" placeholder="Assunto:">

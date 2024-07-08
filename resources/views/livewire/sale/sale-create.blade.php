@@ -17,10 +17,11 @@
         <div class="row">
             {{-- Sales Detail --}}
             <div class="col-md-6">
-                {{-- Customer --}}
-                @livewire('sale.customer-sale')
+              
                 {{-- Cart Details --}}
                 @include('livewire.sale.cart-details')
+                {{-- Customer --}}
+                @livewire('sale.customer-sale')
 
                 {{-- Payment --}}
                 @include('livewire.sale.payment-card')

@@ -60,7 +60,7 @@
             Livewire.on('msg', (event) => {
                 setTimeout(() => {
                     $('.alert').alert('close')
-                }, 130000);
+                }, 3000);
             })
         })
 

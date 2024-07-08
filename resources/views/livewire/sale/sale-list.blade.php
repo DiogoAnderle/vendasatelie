@@ -11,8 +11,8 @@
                         <span>D/M/A - D/M/A</span>
                     </button>
                 </div>
-                <a href="{{ route('sales.create') }}" class="btn btn-primary" wire:click='create'>
-                    <i class="fas fa-cart-plus"></i> Criar venta
+                <a href="{{ route('sales.create') }}" class="btn bg-purple" wire:click='create'>
+                    <i class="fas fa-cart-plus"></i> Criar venda
                 </a>
             </div>
         </x-slot>

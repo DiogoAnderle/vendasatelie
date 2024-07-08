@@ -12,6 +12,6 @@ class PdfController extends Controller
     {
         $shop = Shop::first();
         $pdf = Pdf::loadView('livewire.sale.invoice', compact('sale', 'shop'));
-        return $pdf->stream('invoice.pdf');
+        return $pdf->stream('FV-'.$sale->id.'.pdf');
     }
 }

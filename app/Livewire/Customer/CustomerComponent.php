@@ -27,6 +27,12 @@ class CustomerComponent extends Component
     public $email;
     public $phone_number;
     public $birth_date = '';
+
+    protected $rules = [
+        'name' => 'required|min:3|max:255|unique:customers',
+        'email' => 'email|max:255',
+        'occupation' => 'max:255'
+    ];
     public function render()
     {
         if ($this->search != '') {
@@ -41,6 +47,10 @@ class CustomerComponent extends Component
         return view('livewire.customer.customer-component', compact('customers'));
     }
 
+    public function updated($propertyName){
+        $this->validateOnly($propertyName);
+    }
+
     public function create()
     {
         $this->cleanFormFields();
@@ -51,14 +61,7 @@ class CustomerComponent extends Component
 
     public function store()
     {
-        $rules = [
-            'name' => 'required|min:3|max:255|unique:customers',
-            'email' => 'email|max:255',
-            'occupation' => 'max:255'
-        ];
-
-
-        $this->validate($rules);
+       $this->validate();
 
         $customer = new Customer();
 

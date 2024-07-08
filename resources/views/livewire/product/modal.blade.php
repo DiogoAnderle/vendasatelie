@@ -6,7 +6,7 @@
                   <label for="name" class="form-label">Produto:</label>
                   <input wire:model='name' type="text" class="form-control"id="name" placeholder="Nome do Produto">
                   @error('name')
-                      <div class="alert alert-danger w-100 mt-2">{{ $message }}</div>
+                     <span class="text-danger"><small><strong>* {{ $message }}</strong></small></span>
                   @enderror
               </div>
               {{-- Select Category --}}
@@ -22,7 +22,7 @@
 
                   </select>
                   @error('category_id')
-                      <div class="alert alert-danger w-100 mt-2">{{ $message }}</div>
+                     <span class="text-danger"><small><strong>* {{ $message }}</strong></small></span>
                   @enderror
               </div>
               {{-- TextArea Description --}}
@@ -31,7 +31,7 @@
                   <textarea rows="3" wire:model='description' type="text" class="form-control"
                       id="description"placeholder="Descrição do Produto"></textarea>
                   @error('description')
-                      <div class="alert alert-danger w-100 mt-2">{{ $message }}</div>
+                  <span class="text-danger"><small><strong>* {{ $message }}</strong></small></span>
                   @enderror
               </div>
 
@@ -41,7 +41,7 @@
                   <input wire:model='purchase_price' type="number" min="0" step="any"
                       class="form-control"id="purchase_price" placeholder="Nome do Produto">
                   @error('purchase_price')
-                      <div class="alert alert-danger w-100 mt-2">{{ $message }}</div>
+                     <span class="text-danger"><small><strong>* {{ $message }}</strong></small></span>
                   @enderror
               </div>
 
@@ -51,7 +51,7 @@
                   <input wire:model='sale_price' type="number" min="0" step="any"
                       class="form-control"id="sale_price" placeholder="Nome do Produto">
                   @error('sale_price')
-                      <div class="alert alert-danger w-100 mt-2">{{ $message }}</div>
+                     <span class="text-danger"><small><strong>* {{ $message }}</strong></small></span>
                   @enderror
               </div>
 
@@ -61,7 +61,7 @@
                   <input wire:model='stock' type="number" min="0" class="form-control"id="stock"
                       placeholder="Estoque">
                   @error('stock')
-                      <div class="alert alert-danger w-100 mt-2">{{ $message }}</div>
+                     <span class="text-danger"><small><strong>* {{ $message }}</strong></small></span>
                   @enderror
               </div>
 
@@ -71,7 +71,7 @@
                   <input wire:model='min_stock' type="number" min="0" class="form-control"id="min_stock"
                       placeholder="Nome do Produto">
                   @error('min_stock')
-                      <div class="alert alert-danger w-100 mt-2">{{ $message }}</div>
+                     <span class="text-danger"><small><strong>* {{ $message }}</strong></small></span>
                   @enderror
               </div>
 
@@ -88,7 +88,7 @@
                   <label for="image" class="form-label">Imagem</label>
                   <input wire:model='image' type="file" id="image" accept="image/*">
                   @error('image')
-                      <div class="alert alert-danger w-100 mt-2">{{ $message }}</div>
+                     <span class="text-danger"><small><strong>* {{ $message }}</strong></small></span>
                   @enderror
               </div>
 
