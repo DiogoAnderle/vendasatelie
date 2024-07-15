@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\Models\Sale;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\Attributes\Title;
 
@@ -44,6 +45,8 @@ class Home extends Component
     public $bestSellers = 0;
     public $bestBuyers = 0;
 
+    //Sales in progress
+
     public function render()
     {
         $this->today_sales();
@@ -51,7 +54,8 @@ class Home extends Component
         $this->boxes_reports();
         $this->set_products_reports();
         $this->set_best_sellers_and_buyers();
-        return view('livewire.home.home');
+       $salesInProgress = Sale::where('status', '=', 0)->get();
+        return view('livewire.home.home', ['salesInProgress'=>$salesInProgress]);
     }
 
     public function today_sales()
@@ -131,6 +135,17 @@ class Home extends Component
     {
         $this->bestSellers = $this->best_sellers();
         $this->bestBuyers = $this->best_buyers();
+
+    }
+    #[On('finishSale')]
+    public function finishSale($id)
+    {
+        $sale = Sale::findOrFail($id);
+
+        $sale->status = 1;
+
+        $sale->update();
+        $this->dispatch('msg', 'Venda concluída com sucesso.');
 
     }
 

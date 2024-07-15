@@ -11,6 +11,8 @@
                 <i class="fas fa-trash"></i> Cancelar Venda
             </a>
 
+           
+
         </x-slot>
 
         {{-- Main Content --}}
@@ -25,6 +27,8 @@
 
                 {{-- Payment --}}
                 @include('livewire.sale.payment-card')
+                {{-- Status --}}
+                @include('livewire.sale.sale-status')
             </div>
             {{-- Products --}}
             <div class="col-md-6">

@@ -13,4 +13,3 @@
         <div class="float-right">{{ $cardFooter }}</div>
     </div>
 </div>
-</div>

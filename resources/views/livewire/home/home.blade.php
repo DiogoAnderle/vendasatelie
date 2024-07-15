@@ -11,6 +11,11 @@
             </a>
 
         </x-slot:cardTools>
+        <div class="row">
+            {{-- card sales --}}
+            @include('livewire.home.sales-in-progress')
+        </div>
+        
 
         {{-- card sales --}}
         @include('livewire.home.row-cards-sales')

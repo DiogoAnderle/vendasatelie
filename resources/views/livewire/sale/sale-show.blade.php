@@ -13,7 +13,7 @@
             <div class="card">
                 <h5 class="card-header">Cliente</h5>
                 <div class="card-body">
-                    {{-- card datos cliente --}}
+                    {{-- card dados cliente --}}
                     <div class="card card-primary card-outline">
                         <div class="card-body box-profile">
                             <div class="text-center" style="font-size: 4rem">
@@ -26,33 +26,27 @@
 
                             <ul class="list-group  mb-3">
                                 <li class="list-group-item">
-                                    <b>Documento</b>
-                                    <a class="float-right">
-
-                                    </a>
-                                </li>
-                                <li class="list-group-item">
                                     <b>Telefone</b>
-                                    <a class="float-right text-white">
+                                    <a class="float-right text-white userdata">
                                         {{ $sale->customer->phone_number }}
                                     </a>
                                 </li>
                                 <li class="list-group-item">
                                     <b>Email</b>
-                                    <a class="float-right text-white">
+                                    <a class="float-right text-white userdata">
                                         {{ $sale->customer->email }}
                                     </a>
                                 </li>
 
                                 <li class="list-group-item">
-                                    <b>Profissão</b> <a class="float-right text-white">
+                                    <b>Profissão</b> <a class="float-right text-white userdata">
                                         {{ $sale->customer->occupation }}
                                     </a>
                                 </li>
 
                                 <li class="list-group-item">
                                     <b>Cadastro</b>
-                                    <a class="float-right text-white">
+                                    <a class="float-right text-white userdata">
                                         {{ date('d/m/Y', strtotime($sale->customer->created_at)) }}
                                     </a>
                                 </li>

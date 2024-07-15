@@ -75,6 +75,7 @@
                 $('#' + idModal).modal('show')
             })
         })
+
         document.addEventListener('livewire:init', () => {
             Livewire.on('delete', (event) => {
                 Swal.fire({
@@ -95,6 +96,30 @@
                 });
             })
         })
+
+
+        document.addEventListener('livewire:init', () => {
+            Livewire.on('finished', (event) => {
+                Swal.fire({
+                    title: "Tem certeza que deseja marcar pedido FV-" + event.id + ' como concluído?',
+                    text: "Essa ação não pode ser desfeita!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Sim, concluir isso!",
+                    cancelButtonText: "Cancelar"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        Livewire.dispatch(event.eventName, {
+                            id: event.id
+                        })
+                    }
+                });
+            })
+        })
+
+
     </script>
     
 </body>

@@ -13,30 +13,30 @@
 
                         <ul class="list-group mb-3">
                             <li class="list-group-item">
-                                <b>E-mail:</b> <a class="float-right text-white">{{ $customer->email }}</a>
+                                <b>E-mail:</b> <a class="float-right text-white userdata">{{ $customer->email }}</a>
                             </li>
 
                             <li class="list-group-item">
                                 <b>Telefone:</b>
                                 @if ($customer->phone_number)
-                                    <a class="float-right text-white">{{ $customer->phone_number }}</a>
+                                    <a class="float-right text-white userdata">{{ $customer->phone_number }}</a>
                                 @else
-                                    <a class="float-right text-white">Não informado</a>
+                                    <a class="float-right text-white userdata">Não informado</a>
                                 @endif
                             </li>
                             <li class="list-group-item">
                                 <b>Data de Nascimento:</b>
                                 @if ($customer->phone_number)
                                     <a
-                                        class="float-right text-white">{{ date('d/m/Y', strtotime($customer->birth_date)) }}</a>
+                                        class="float-right text-white userdata">{{ date('d/m/Y', strtotime($customer->birth_date)) }}</a>
                                 @else
-                                    <a class="float-right text-white"></a>
+                                    <a class="float-right text-white userdata"></a>
                                 @endif
                             </li>
 
                             <li class="list-group-item">
                                 <b>Data de Cadastro:</b> <a
-                                    class="float-right text-white">{{ date('d/m/Y', strtotime($customer->created_at)) }}</a>
+                                    class="float-right text-white userdata">{{ date('d/m/Y', strtotime($customer->created_at)) }}</a>
                             </li>
 
                         </ul>

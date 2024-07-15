@@ -20,6 +20,7 @@
         <x-table>
             <x-slot:thead>
                 <th>ID</th>
+                <th>Status</th>
                 <th>Nome</th>
                 <th>Total</th>
                 <th>Acrésc./Desc.</th>
@@ -37,6 +38,19 @@
                     <td>
                         <span class="badge badge-primary">FV-{{ $sale->id }}</span>
                     </td>
+                    @if($sale->status == 0)
+                        <td>
+                            <a wire:click="$dispatch('finished',{id: {{ $sale->id }}, eventName:'finishSale'})"
+                                class="btn" title="Concluir Pedido">
+                                {!! $sale->statusLabel !!}
+                            </a>
+                        </td>
+                    @else
+                        <td>
+                            <span> {!! $sale->statusLabel !!}</span>
+                        </td>
+                    
+                    @endif
                     <td>{{ $sale->customer->name }}</td>
                     <td>
                         <span class="badge badge-secondary">{{ currencyBRLFormat($sale->total) }}</span>

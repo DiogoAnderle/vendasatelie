@@ -57,5 +57,7 @@
                 @endif
             </div>
         </div>
+        {{-- Input checkbox status --}}
+        
     </div>
 </div>

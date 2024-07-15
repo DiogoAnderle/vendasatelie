@@ -17,7 +17,7 @@
                    
                     <div class="form-group">
                         <label for="message" class="message">Mensagem:</label>
-                        <textarea wire:model.lazy="message" id="message" class="form-control" style="height: 150px"></textarea>
+                        <textarea wire:model.lazy="message" id="message" class="form-control" style="height: 150px" placeholder="Mensagem:"></textarea>
                         @error('message')
                         <span class="text-red mt-0"><small><strong>*{{ $message }}</strong></small></span>
                     @enderror

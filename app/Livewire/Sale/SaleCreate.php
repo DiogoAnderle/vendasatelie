@@ -29,6 +29,7 @@ class SaleCreate extends Component
     public $updatingValue = 0;
     public $customerId = 1;
     public $customer = '';
+    public $status = 0;
 
     public function render()
     {
@@ -58,7 +59,7 @@ class SaleCreate extends Component
     {
         $cart = Cart::getCart();
         if (count($cart) == 0) {
-            $this->dispatch('msg', 'Carrinho Vazio', 'danger');
+            $this->dispatch('msg', 'Venda não pode ser criada, carrinho vazio!', 'danger', '<i class="fas fa-exclamation-triangle"></i>');
             return;
         }
 
@@ -69,6 +70,7 @@ class SaleCreate extends Component
             $sale->net_value = $this->netValue;
             $sale->user_id = userID();
             $sale->customer_id = $this->customerId;
+            $sale->status = $this->status;
             $sale->sale_date = date('Y-m-d');
             $sale->save();
 

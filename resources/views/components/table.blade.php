@@ -3,7 +3,7 @@
     <div>
         <span>Mostrar </span>
         <select id="registries" wire:model.live='quantity'>
-            <option value="15">10</option>
+            <option value="15">15</option>
             <option value="30">30</option>
             <option value="50">50</option>
             <option value="100">100</option>

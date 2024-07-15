@@ -112,9 +112,9 @@ class CustomerComponent extends Component
         $customer->occupation = $this->occupation;
         $customer->email = $this->email;
         $customer->phone_number = $this->phone_number;
-        $customer->birth_date = $this->birth_date;
+        $customer->birth_date = date('Y-m-d',$this->birth_date);
 
-        $customer->update();
+        //0$customer->update();
 
         $this->dispatch('close-modal', 'modalCustomer');
         $this->dispatch('msg', 'Cliente editado com sucesso.');

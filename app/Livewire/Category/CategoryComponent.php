@@ -18,7 +18,7 @@ class CategoryComponent extends Component
     //Propriedades de Classe
     public $search = '';
     public $totalRegistros = 0;
-    public $quantity = 10;
+    public $quantity = 15;
 
     //Propriedades de Modelo
     public $name;

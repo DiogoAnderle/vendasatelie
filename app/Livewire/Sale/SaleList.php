@@ -75,4 +75,17 @@ class SaleList extends Component
         $this->dateStart = $startDate;
         $this->dateEnd = $endDate;
     }
+
+    #[On('finishSale')]
+    public function finishSale($id)
+    {
+        $sale = Sale::findOrFail($id);
+
+        $sale->status = 1;
+
+        $sale->update();
+        $this->dispatch('msg', 'Venda concluída com sucesso.');
+
+    }
+
 }
