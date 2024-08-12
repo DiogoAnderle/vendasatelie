@@ -1,3 +1,92 @@
+README - Vendas Ateliê
+Português
+Nome da Aplicação: Vendas Ateliê
+
+Descrição:
+A aplicação "Vendas Ateliê" é uma ferramenta completa para o controle de vendas, estoque, produtos, clientes e categorias em um ateliê. Ela utiliza o Cart.PHP do DarrylDecode para a tela de vendas, proporcionando uma experiência de checkout eficiente e intuitiva.
+
+Funcionalidades:
+
+Envio de email com o Facades Mail para notificações e comunicações.
+Impressão de fatura em PDF com o DOMPDF para registro e controle.
+Tecnologias Utilizadas:
+
+PHP Laravel
+Livewire
+HTML
+CSS
+JavaScript
+SQLite3
+Pré-requisitos:
+
+PHP 7.4 ou superior
+Composer
+SQLite3
+Instalação e Configuração:
+
+Clone o repositório: git clone https://github.com/seu-usuario/vendas-atelie.git
+Navegue até o diretório do projeto: cd vendas-atelie
+Instale as dependências do Composer: composer install
+Configure o arquivo .env com as informações necessárias.
+Execute as migrações do banco de dados: php artisan migrate
+Inicie o servidor de desenvolvimento: php artisan serve
+Uso:
+Após a instalação, acesse a aplicação via navegador em http://localhost:8000 para começar a gerenciar vendas, estoque e clientes.
+
+Contribuição:
+Este é um projeto open-source. Novas funcionalidades e melhorias são bem-vindas! Para contribuir, faça um fork do repositório, crie uma branch com suas alterações e envie um pull request.
+
+Licença:
+Este projeto é distribuído sob a licença MIT. Consulte o arquivo LICENSE para mais informações.
+
+Autor:
+Diogo Anderle - anderle88@gmail.com
+
+README - Ateliê Sales
+English
+Application Name: Ateliê Sales
+
+Description:
+The "Ateliê Sales" application is a complete tool for managing sales, inventory, products, customers, and categories in a workshop. It uses DarrylDecode's Cart.PHP for the sales screen, providing an efficient and intuitive checkout experience.
+
+Features:
+
+Email sending with Facades Mail for notifications and communications.
+Invoice printing in PDF format with DOMPDF for record-keeping and control.
+Technologies Used:
+
+PHP Laravel
+Livewire
+HTML
+CSS
+JavaScript
+SQLite3
+Prerequisites:
+
+PHP 7.4 or higher
+Composer
+SQLite3
+Installation and Setup:
+
+Clone the repository: git clone https://github.com/your-username/atelie-sales.git
+Navigate to the project directory: cd atelie-sales
+Install Composer dependencies: composer install
+Configure the .env file with the necessary information.
+Run the database migrations: php artisan migrate
+Start the development server: php artisan serve
+Usage:
+After installation, access the application via your browser at http://localhost:8000 to start managing sales, inventory, and customers.
+
+Contributing:
+This is an open-source project. New features and improvements are welcome! To contribute, fork the repository, create a branch with your changes, and submit a pull request.
+
+License:
+This project is licensed under the MIT License. See the LICENSE file for more details.
+
+Author:
+Diogo Anderle - anderle88@gmail.com
+
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
