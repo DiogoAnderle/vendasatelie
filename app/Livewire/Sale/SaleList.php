@@ -59,10 +59,11 @@ class SaleList extends Component
     {
         $sale = Sale::findOrFail($id);
 
-        foreach ($sale->items as $item) {
-            Product::find($item->id)->increment('stock', $item->quantity);
-            $item->delete();
-        }
+        // foreach ($sale->items as $item) {
+        //     dd($item);
+        //     Product::find($item->id)->increment('stock', $item->quantity);
+        //     $item->delete();
+        // }
 
         $sale->delete();
         $this->dispatch('msg', 'Venda deletada com sucesso.');

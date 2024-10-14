@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Fatura de Venda</title>
-    <style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"> <style>
         .b {
             border: 1px solid black;
         }
@@ -57,6 +57,28 @@
             font-weight: 500;
             margin: 0 auto;
         }
+                    /* Tachyons extensions */
+        
+                    .npurple-1 {
+                color: #820AD1;
+            }
+        
+            .n-grey-777 {
+                color: #777777
+            }
+        
+            #qr-data {
+                color: black;
+                background-color: white;
+            }
+        
+            #qr-container {
+                width: 12em;
+                height: 12em;
+                mix-blend-mode: normal;
+                border-color: #820AD1;
+            }
+        
     </style>
 </head>
 
@@ -64,7 +86,7 @@
     <table width="100%">
         <tr>
             <td width="25%">
-                <img src="{{ public_path() . '/' . 'storage/' . $shop->image->url }}" alt="" srcset=""
+                <img src="{{ public_path() . '/' . 'storage/' . $shop->image->url }}" alt="logo-empresa"
                     width="150px">
             </td>
             <td width="45%" style="text-align: center;">
@@ -168,9 +190,51 @@
         </tbody>
     </table>
 
-    <table width="100%" style="text-align: center; margin-top:5rem;">
+    <!-- <table width="100%" style="text-align: center; margin-top:1rem;">
+        <tr>
+            <td>Recebemos o valor de <b>{{ currencyBRLFormat($sale->net_value) }}</b> em 01 de agosto de 2024</td>
+        </tr>
+        <tr>
+            <td>Referente a fatura aqui apresentada de numero FV-{{ $sale->id }}</td>
+        </tr>
+    </table> -->
+
+    <table width="100%" style="text-align: center; margin: 0.8rem 3rem;">
+        <tr>
+            <td width="100%" style="text-align: center; margin-top:5rem;">
+                <div class="card" style="width: 15rem;">
+                    <div class="cartd-title">
+                        <h3>Forma de pagamento</h3>
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center">
+                         Entrada de 50%, saldo restante boleto para 7 dias.
+                    </div>
+
+                 </div>
+            </td>
+            
+        </tr>
+    </table>
+
+
+    <table width="100%" style="text-align: center; margin-top:1rem;">
+        <!-- <tr>
+            <td>
+                Recebemos o valor de <b>{{ currencyBRLFormat($sale->net_value) }}</b> de <b>{{ $sale->customer->name }}</b> 
+                <br>
+            </td>
+        </tr>
         <tr>
             <td>
+                Referente aos produtos acima destacado. 
+                <br>
+            </td>
+        </tr> -->
+        <tr>
+            <td>
+                <br>
+                <br>
+                <br>
                 __________________________________________ <br>
                 <b>{{ $sale->user->name }}</b> <br>
                 Vendedor
@@ -178,6 +242,56 @@
         </tr>
     </table>
     <p style="text-align: center;">Agradeçemos por sua compra!</p>
+    
+    
+    <!-- <table width="100%" style="text-align: center; margin: 2rem 3rem;">
+        <tr>
+            <td width="50%" style="text-align: center; margin-top:5rem;">
+                <div class="card" style="width: 15rem;">
+                    <div class="cartd-title">
+                        <h3>Pix Nubank</h3>
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center">
+                         <img class="card-img-top" 
+                             style="width: 100; border-radius: 15px;" 
+                             src="{{ public_path() . '/' . 'storage/shop/qrcode-nubank.png'}}" 
+                             alt="qr-code-nubank" />
+                    </div>
+                     <div>
+                         <p class="card-text">Escaneie o QR Code ou clique no botão abaixo para abrir o pagamento detalhado</p>
+                     </div>
+                     
+                     <div class="card-footer">
+                          <a href="https://nubank.com.br/cobrar/y3oh0/66999afc-7ef8-444e-8247-7c1d02d9baae" style="width: 50px;" 
+                                 class="btn btn-lg" style="background-color: #a249dd; color: white;">
+                                 Nubank                                 
+                             </a>
+                     </div>
+                 </div>
+            </td>
+            <td width="50%" style="text-align: center; margin-top:5rem;">
+                <div class="card" style="width: 15rem;">
+                    <div class="cartd-title">
+                        <h3>Parcelado 3x sem juros</h3>
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center">
+                         <img class="card-img-top" 
+                             style="width: 135; border-radius: 15px;" 
+                             src="{{ public_path() . '/' . 'storage/shop/mercadopago.jpg'}}" 
+                             alt="logo-mercado-pago" />
+                    </div>
+
+                     <div>
+                         <p class="card-text">Clique no botão abaixo e solicite o link para pagamento em até 3x sem juros</p>
+                     </div>
+                     
+                     <div class="card-footer">
+                          <a href="https://wa.me/47989090879?text=Olá%204%20de%20Nós%20Ateliê,%20gostaria%20de%20parcelar%20minha%20compra%20no%20valor%20de%20{{ currencyBRLFormat($sale->net_value) }}%20em%203x%20sem%20juros." class="btn btn-primary btn-lg">Mercado Pago</a>
+                     </div>
+                </div>
+            </td>
+        </tr>
+    </table> -->
 
 </body>
 

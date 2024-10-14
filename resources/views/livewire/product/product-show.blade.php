@@ -18,9 +18,9 @@
         <div class="card card-solid">
             <div class="card-body">
                 <div class="row">
-                    <div class="col-12 col-sm-5">
-                        <div class="col-12">
-                            <img src="{{ $product->imagem }}" class="product-image" alt="Product Image">
+                    <div class="col-12 col-sm-5 d-flex align-items-center ">
+                        <div class="col-12 d-flex justify-content-center">
+                            <img src="{{ $product->imagem }}" class="product-image" alt="Product Image" style="width:350px">
                         </div>
 
                     </div>
@@ -114,7 +114,7 @@
                                     R$ {{ number_format($product->purchase_price, 2, ',', '.') }}
                                 </h2>
                                 <h4 class="mt-0">
-                                    <small>Preço venda </small>
+                                    <small>Preço de Compra </small>
                                 </h4>
                             </div>
                             <div class="bg-gray py-2 px-3 mt-4 col-md-6">
@@ -122,7 +122,7 @@
                                     R$ {{ number_format($product->sale_price, 2, ',', '.') }}
                                 </h2>
                                 <h4 class="mt-0">
-                                    <small>Preço compra</small>
+                                    <small>Preço de Venda</small>
                                 </h4>
                             </div>
                         </div>

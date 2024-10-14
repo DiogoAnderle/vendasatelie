@@ -65,8 +65,17 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Factura: <b>FV-{{ $sale->id }}</b> </h3>
+                    <h3 class="card-title">Factura: <b>FV-{{ $sale->id }}</b> 
+                       
+                     
+                    </h3>
                     <div class="card-tools">
+                        <a href="{{ route('sales.invoice', $sale) }}" target="_blank" title="Imprimir Fatura">
+                            <span class="btn btn-sm btn-danger mr-2">
+                                <i class="far fa-file-pdf text-white "></i>
+                                Fatura
+                            </span>
+                        </a>                        
                         <i class="fas fa-tshirt" title="Número produtos"></i>
                         <span class="badge badge-pill badge-primary mr-2">
                             {{ $sale->items->count() }}

@@ -79,7 +79,7 @@
         document.addEventListener('livewire:init', () => {
             Livewire.on('delete', (event) => {
                 Swal.fire({
-                    title: "Tem certeza que deseja excluir " + event.name + ' ?',
+                    title: "Tem certeza que deseja excluir a venda FV-" + event.id + ' ?',
                     text: "Essa ação não pode ser desfeita!",
                     icon: "warning",
                     showCancelButton: true,

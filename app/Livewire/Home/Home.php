@@ -25,6 +25,12 @@ class Home extends Component
     // Months Sales Graph
     public $listTotalSalesMonth = '';
 
+    // Month Box Report
+    public $monthSalesQuantity = 0;
+    public $monthTotalSales = 0;
+    public $monthItemsQuantity = 0;
+    public $monthProductsSalesQuantity = 0;
+
     // Box Report
     public $salesQuantity = 0;
     public $totalSales = 0;
@@ -49,13 +55,14 @@ class Home extends Component
 
     public function render()
     {
+
         $this->today_sales();
         $this->calc_sales_month();
         $this->boxes_reports();
         $this->set_products_reports();
         $this->set_best_sellers_and_buyers();
-       $salesInProgress = Sale::where('status', '=', 0)->get();
-        return view('livewire.home.home', ['salesInProgress'=>$salesInProgress]);
+        $salesInProgress = Sale::where('status', '=', 0)->get();
+        return view('livewire.home.home', ['salesInProgress' => $salesInProgress]);
     }
 
     public function today_sales()
@@ -80,6 +87,11 @@ class Home extends Component
         $this->itemsQuantity = Item::whereYear('sale_date', '=', date('Y'))->sum('quantity');
         $this->productsSalesQuantity = count(Item::whereYear('sale_date', '=', date('Y'))->groupBy('product_id')->get());
 
+        $this->monthSalesQuantity = Sale::whereMonth('sale_date', '=', date('m'))->count();
+        $this->monthTotalSales = currencyBRLFormat(Sale::whereMonth('sale_date', '=', date('m'))->sum('net_value'));
+        $this->monthItemsQuantity = Item::whereMonth('sale_date', '=', date('m'))->sum('quantity');
+        $this->monthProductsSalesQuantity = count(Item::whereMonth('sale_date', '=', date('m'))->groupBy('product_id')->get());
+
         $this->productsQuantity = Product::count();
         $this->stockQuantity = number_format(Product::sum('stock'), 0, ",", ".");
         $this->categoriesQuantity = Category::count();
@@ -99,7 +111,7 @@ class Home extends Component
 
         $productsQuery = $productsQuery
             ->orderBy('total_quantity', 'desc')
-            ->take(5)
+            ->take(10)
             ->get();
         return $productsQuery;
     }
@@ -118,7 +130,7 @@ class Home extends Component
             ->whereYear('sales.sale_date', date('Y'))
             ->groupBy('users.id', 'users.name')
             ->orderBy('total', 'desc')
-            ->take(5)
+            ->take(10)
             ->get();
     }
     public function best_buyers()
@@ -128,7 +140,7 @@ class Home extends Component
             ->whereYear('sales.sale_date', date('Y'))
             ->groupBy('customers.id', 'customers.name')
             ->orderBy('total', 'desc')
-            ->take(5)
+            ->take(10)
             ->get();
     }
     public function set_best_sellers_and_buyers()
