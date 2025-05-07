@@ -90,6 +90,16 @@
                 </li>
                 @if (isAdmin())
                     <li class="nav-item">
+                        <a href="{{ route('reports') }}"
+                            class="nav-link {{ $title == 'Relatórios' ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-chart-line"></i>
+                            <p>
+                                Relatórios
+                            </p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
                         <a href="{{ route('users') }}" class="nav-link {{ $title == 'Usuários' ? 'active' : '' }}">
                             <i class="nav-icon fas fa-users"></i>
                             <p>

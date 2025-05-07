@@ -15,9 +15,9 @@
                 {{-- Cart Details --}}
                 @include('livewire.sale.cart-details')
 
-                @livewire('sale.customer-sale')
+                <livewire:sale.customer-sale :customerId="$sale->customer_id" />
 
-                
+
             </div>
             {{-- Products --}}
             <div class="col-md-6">
@@ -25,7 +25,7 @@
             </div>
         </div>
 
-        
+
     </x-card>
 
 </div>

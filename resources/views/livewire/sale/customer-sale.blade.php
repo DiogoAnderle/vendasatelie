@@ -13,24 +13,20 @@
             <div class="form-group">
                 <label>Selecionar cliente:</label>
 
-                <!--input group -->
                 <div class="input-group" wire:ignore>
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-user"></i></span>
                     </div>
 
-                    <select wire:model="customer_id" id="select2" class="form-control">
+                    <select wire:model="$parent.customer_id" id="select2" class="form-control">
                         @foreach ($customers as $customer)
                             <option value="{{ $customer->id }}">{{ $customer->name }}</option>
                         @endforeach
-
                     </select>
 
                 </div>
-                <!-- /.input group -->
             </div>
         </div>
-        <!-- Modal Cliente -->
         @include('livewire.customer.modal')
         {{-- End Modal --}}
     </div>
@@ -42,15 +38,16 @@
     @section('scripts')
         <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
         <script>
-            $('#select2').select2({
-                theme: "bootstrap4"
-            });
-            $('#select2').on('change', function() {
-                Livewire.dispatch('customerId', {
-                    id: $(this).val()
+            $(document).ready(function() {
+                $('#select2').select2({
+                    theme: "bootstrap4"
+                });
+                $('#select2').on('change', function() {
+                    Livewire.dispatch('customerId', {
+                        id: $(this).val()
+                    })
                 })
-            })
+            });
         </script>
     @endsection
-
 </div>

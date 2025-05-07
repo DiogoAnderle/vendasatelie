@@ -19,6 +19,7 @@ use App\Livewire\Email\EmailComponent;
 use App\Livewire\Sale\SaleEdit;
 use App\Livewire\Shop\ShopComponent;
 use App\Livewire\Home\Home;
+use App\Livewire\ReportsPage;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,6 +64,8 @@ Route::get('/sales/invoice/{sale}', [PdfController::class, 'invoicePdf'])->name(
 Route::get('/sales/receipt/{sale}', [PdfController::class, 'receiptPdf'])->name('sales.receipt')->middleware(['auth']);
 
 Route::get('/email', EmailComponent::class)->name('emails')->middleware(['auth']);
-Route::get('/offline', function(){
+Route::get('/offline', function () {
     return view('vendor.laravelpwa.offline');
+
 });
+Route::get('/reports', ReportsPage::class)->name('reports');

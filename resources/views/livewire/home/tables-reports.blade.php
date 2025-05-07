@@ -205,10 +205,6 @@
                         Produtos cadastrados recentemente
                     </b>
                 </h3>
-
-                <div class="card-tools">
-
-                </div>
             </div>
             <!-- /.card-header -->
             <div class="card-body p-0">

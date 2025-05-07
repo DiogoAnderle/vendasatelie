@@ -3,7 +3,6 @@
 namespace App\Livewire\Sale;
 
 use App\Models\Cart;
-use App\Models\Customer;
 use App\Models\Item;
 use App\Models\Product;
 use App\Models\Sale;

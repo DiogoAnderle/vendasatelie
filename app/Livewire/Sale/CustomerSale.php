@@ -54,11 +54,11 @@ class CustomerSale extends Component
     public $birth_date = '';
 
     /**
-     * Selected customer ID
+     * Selected customer ID (this should match the property in SaleEdit)
      *
      * @var int
      */
-    public $customer = 0;
+    public $customer_id = 0;
 
     /**
      * Selected customer name
@@ -82,24 +82,33 @@ class CustomerSale extends Component
     /**
      * Mount the component
      *
+     * @param int|null $customerId
      * @return void
      */
-    public function mount()
+    public function mount($customerId = null)
     {
-        $this->customerName();
+        if ($customerId) {
+            $this->customer_id = $customerId;
+            $this->customerName($customerId);
+            $this->dispatch('customerId', $customerId); // Emite o evento com o ID do cliente da venda
+        } else {
+            $this->customerName(); // Carrega o nome do cliente padrão (ID 1)
+            $this->dispatch('customerId', 1); // Emite o evento com o ID padrão
+        }
     }
 
     /**
-     * Handle the customerId event
+     * Handle the customerId event (this is triggered by the select change in the view)
      *
      * @param int $id
      * @return void
      */
     #[On('customerId')]
-    public function customerId($id = 1)
+    public function updateCustomerIdFromSelect($id)
     {
-        $this->customer = $id;
+        $this->customer_id = $id;
         $this->customerName($id);
+        // Não precisamos mais emitir o evento aqui, pois o SaleEdit já tem a propriedade $customer_id atualizada pelo wire:model
     }
 
     /**
