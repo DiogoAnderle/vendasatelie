@@ -19,7 +19,7 @@
                         <span class="input-group-text"><i class="fas fa-user"></i></span>
                     </div>
 
-                    <select wire:model.live="customer" id="select2" class="form-control">
+                    <select wire:model="customer_id" id="select2" class="form-control">
                         @foreach ($customers as $customer)
                             <option value="{{ $customer->id }}">{{ $customer->name }}</option>
                         @endforeach

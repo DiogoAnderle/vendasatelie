@@ -14,6 +14,10 @@
             <div class="col-md-6">
                 {{-- Cart Details --}}
                 @include('livewire.sale.cart-details')
+
+                @livewire('sale.customer-sale')
+
+                
             </div>
             {{-- Products --}}
             <div class="col-md-6">

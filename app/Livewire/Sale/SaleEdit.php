@@ -3,6 +3,7 @@
 namespace App\Livewire\Sale;
 
 use App\Models\Cart;
+use App\Models\Customer;
 use App\Models\Item;
 use App\Models\Product;
 use App\Models\Sale;
@@ -19,12 +20,12 @@ class SaleEdit extends Component
 
     // Class Properties
     public $search = '';
-    public $quantity = 15;
+    public $registers = 15;
     public $totalRegistros = 0;
     public array $productsInCartIds = [];
 
     public Sale $sale;
-    public $customer;
+    public $customer_id; // Para armazenar o ID do cliente selecionado
     public $loadCart = false;
 
     public function render()
@@ -39,13 +40,14 @@ class SaleEdit extends Component
         ]);
     }
 
-    public function mount()
+    public function mount(Sale $sale)
     {
+        $this->sale = $sale;
+        $this->customer_id = $sale->customer_id;
+
         $this->loadProductsInCartIds();
         $this->getItemsToCart();
         $this->loadCart = true;
-        $this->customer = $this->sale->customer; // Carrega o cliente da venda
-
     }
 
     public function loadProductsInCartIds()
@@ -132,10 +134,18 @@ class SaleEdit extends Component
         $this->loadProductsInCartIds();
     }
 
+    #[On('customerId')]
+    public function customerId($id)
+    {
+        $this->customer_id = $id;
+    }
+
+
     public function editSale()
     {
         $this->sale->total = Cart::getTotal();
         $this->sale->net_value = $this->sale->total;
+        $this->sale->customer_id = $this->customer_id; // Atualiza o customer_id da venda
 
         $this->sale->update();
 
@@ -170,6 +180,6 @@ class SaleEdit extends Component
             ->orWhere('description', 'like', '%' . $this->search . '%')
             ->orWhere('sale_price', 'like', '%' . $this->search . '%')
             ->orderBy('id', 'asc')
-            ->paginate($this->quantity);
+            ->paginate($this->registers);
     }
 }
