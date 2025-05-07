@@ -35,7 +35,7 @@
                 </thead>
                 <tbody>
                     @forelse ($cart as $product)
-                        <tr>
+                        <tr> 
                             <td>{{ $product->id }}</td>
                             <td>
                                 <x-image :item="$product->associatedModel" size="40" />
