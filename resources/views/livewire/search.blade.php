@@ -22,9 +22,6 @@
                     <div class="mr-2"><b>Preço venda:</b>
                         <span class="badge badge-pill badge-info"> {!! $product->price !!}</span>
                     </div>
-                    <div>Estoque:
-                        <span> {!! $product->stockLabel !!}</span>
-                    </div>
                 </div>
             </li>
         @endforeach

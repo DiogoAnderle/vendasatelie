@@ -35,4 +35,12 @@ class Sale extends Model
             }
         );
     }
+    protected function invoiceLabel(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                return $this->attributes['invoice'] == 1 ? '<span class="badge badge-success" title="Emitir NF"> <i class="fas fa-check"></i></i> </span>' : '';
+            }
+        );
+    }
 }

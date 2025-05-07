@@ -16,8 +16,6 @@ return new class extends Migration {
             $table->string('description')->nullable();
             $table->decimal('purchase_price', 10, 2)->nullable();
             $table->decimal('sale_price', 10, 2);
-            $table->unsignedInteger('stock');
-            $table->unsignedInteger('min_stock')->nullable();
             $table->boolean('active')->default(1);
 
             $table->foreignId('category_id')->constrained();

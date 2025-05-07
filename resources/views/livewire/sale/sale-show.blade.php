@@ -75,7 +75,17 @@
                                 <i class="far fa-file-pdf text-white "></i>
                                 Fatura
                             </span>
-                        </a>                        
+                        </a>    
+                        
+                        <a href="{{ route('sales.receipt', $sale) }}" target="_blank" title="Imprimir Recibo">
+                            <span class="btn btn-sm btn-primary mr-2">
+                                <i class="far fa-file-pdf text-white "></i>
+                                Recibo
+                            </span>
+                        </a>     
+                        <a href="{{ route('sales.edit', $sale) }}" class="btn btn-warning btn-sm text-white" title="Editar">
+                            <i class="far fa-edit"></i>Editar
+                        </a>       
                         <i class="fas fa-tshirt" title="Número produtos"></i>
                         <span class="badge badge-pill badge-primary mr-2">
                             {{ $sale->items->count() }}
@@ -99,6 +109,8 @@
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col"><i class="fas fa-image"></i></th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Nota Fiscal</th>
                                     <th scope="col">Produto</th>
                                     <th scope="col">Preço venda</th>
                                     <th scope="col" width="15%">Qtd</th>
@@ -115,6 +127,22 @@
                                             <img src="{{ asset($product->image) }}" width="40"
                                                 class="img-fluid rounded">
 
+                                        </td>
+                                        @if($sale->status == 0)
+                                        <td>
+                                            <a wire:click="$dispatch('finished',{id: {{ $sale->id }}, eventName:'finishSale'})"
+                                                class="btn" title="Concluir Pedido">
+                                                {!! $sale->statusLabel !!}
+                                            </a>
+                                        </td>
+                                    @else
+                                        <td>
+                                            <span> {!! $sale->statusLabel !!}</span>
+                                        </td>
+                                    
+                                    @endif
+                                        <td>
+                                            <span> {!! $sale->invoiceLabel !!}</span>
                                         </td>
                                         <td>{{ $product->name }}</td>
                                         <td>{{ currencyBRLFormat($product->price) }}</td>

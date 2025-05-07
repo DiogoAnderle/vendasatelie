@@ -160,21 +160,7 @@
         <!-- /.info-box -->
     </div>
     <!-- /.col -->
-    <div class="col-lg-3 col-sm-6 col-md-6">
-        <div class="info-box mb-3">
-            <span class="info-box-icon bg-success elevation-1"
-                ><i class="fas fa-shopping-basket"></i
-            ></span>
 
-            <div class="info-box-content">
-                <span class="info-box-text">Estoque total</span>
-                <span class="info-box-number"> {{ $stockQuantity }}</span>
-            </div>
-            <!-- /.info-box-content -->
-        </div>
-        <!-- /.info-box -->
-    </div>
-    <!-- /.col -->
 
     <!-- fix for small devices only -->
     <div class="clearfix hidden-md-up"></div>

@@ -29,6 +29,8 @@
                 @include('livewire.sale.payment-card')
                 {{-- Status --}}
                 @include('livewire.sale.sale-status')
+                {{-- Status --}}
+                @include('livewire.sale.order-notes')
             </div>
             {{-- Products --}}
             <div class="col-md-6">

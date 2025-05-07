@@ -12,7 +12,6 @@
                 <th scope="col"><i class="fas fa-image"></i></th>
                 <th scope="col">Nome</th>
                 <th scope="col">Preço.vd</th>
-                <th scope="col">Estoque</th>
                 <th scope="col">Ação</th>
 
             </x-slot>

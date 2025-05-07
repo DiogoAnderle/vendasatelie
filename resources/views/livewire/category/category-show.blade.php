@@ -12,10 +12,6 @@
                             <li class="list-group-item">
                                 <b>Produtos</b> <a class="float-right">{{ count($category->products) }}</a>
                             </li>
-                            <li class="list-group-item">
-                                <b>Artigos</b> <a class="float-right">{{ $products->sum('stock') }}</a>
-                            </li>
-
                         </ul>
                     </div>
 
@@ -30,7 +26,6 @@
                             <th>Imagem</th>
                             <th>Produto</th>
                             <th>Preço Venda</th>
-                            <th>Estoque</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -42,8 +37,6 @@
                                 </td>
                                 <td>{{ $product->name }}</td>
                                 <td>{!! $product->price !!}</td>
-                                <td>{!! $product->stockLabel !!}</td>
-
                             </tr>
                         @endforeach
 

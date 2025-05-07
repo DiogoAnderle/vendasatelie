@@ -29,14 +29,14 @@ class SaleList extends Component
             $this->resetPage();
         }
         $this->totalRegistros = Sale::count();
-        
-        $salesQuery =Sale::where(function($q){
-                        $q->where('id', 'LIKE', '%' .$this->search . '%');
-                        $q->orWhere('net_value', 'like', '%' . $this->search . '%');
-                        $q->orWhereHas('customer', function($q) {
-                            $q->where('name', 'LIKE', '%' .$this->search . '%');
-                        });
-                    });
+
+        $salesQuery = Sale::where(function ($q) {
+            $q->where('id', 'LIKE', '%' . $this->search . '%');
+            $q->orWhere('net_value', 'like', '%' . $this->search . '%');
+            $q->orWhereHas('customer', function ($q) {
+                $q->where('name', 'LIKE', '%' . $this->search . '%');
+            });
+        });
 
         if ($this->dateStart && $this->dateEnd) {
             $salesQuery = $salesQuery->whereBetween(
@@ -59,15 +59,11 @@ class SaleList extends Component
     {
         $sale = Sale::findOrFail($id);
 
-        // foreach ($sale->items as $item) {
-        //     dd($item);
-        //     Product::find($item->id)->increment('stock', $item->quantity);
-        //     $item->delete();
-        // }
-
+        foreach ($sale->items as $item) {
+            $item->delete();
+        }
         $sale->delete();
         $this->dispatch('msg', 'Venda deletada com sucesso.');
-
     }
 
     #[On('setDates')]

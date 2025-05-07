@@ -1,5 +1,5 @@
 <div>
-    <x-card cardTitle="Lista de Produtos ({{ $this->totalRegistros }})">
+    <x-card cardTitle="Lista de Produtos ({{ $totalRegistros }})">
         <x-slot:cardTools>
             <a class="btn btn-primary" wire:click='create'>
                 <i class="fas fa-plus-circle"></i> Cadastrar Produto
@@ -12,7 +12,6 @@
                 <th>Nome</th>
                 <th>Categoria</th>
                 <th>Preço de Venda</th>
-                <th>Estoque</th>
                 <th>Estado</th>
                 <th colspan=3 width="3%" class="text-center">Ações</th>
 
@@ -28,7 +27,6 @@
                             href="{{ route('categories.show', $product->category->id) }}">{{ $product->category->name }}</a>
                     </td>
                     <td>{!! $product->price !!}</td>
-                    <td>{!! $product->stockLabel !!}</td>
                     <td>{!! $product->activeLabel !!}</td>
                     <td title="Detalhes"><a href="{{ route('products.show', $product) }}"
                             class="btn btn-sm btn-success"><i class="far fa-eye"></i></a>

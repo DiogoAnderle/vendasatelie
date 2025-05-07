@@ -3,7 +3,7 @@ Português
 Nome da Aplicação: Vendas Ateliê
 
 Descrição:
-A aplicação "Vendas Ateliê" é uma ferramenta completa para o controle de vendas, estoque, produtos, clientes e categorias em um ateliê. Ela utiliza o Cart.PHP do DarrylDecode para a tela de vendas, proporcionando uma experiência de checkout eficiente e intuitiva.
+A aplicação "Vendas Ateliê" é uma ferramenta completa para o controle de vendas, produtos, clientes e categorias em um ateliê. Ela utiliza o Cart.PHP do DarrylDecode para a tela de vendas, proporcionando uma experiência de checkout eficiente e intuitiva.
 
 Funcionalidades:
 
@@ -31,7 +31,7 @@ Configure o arquivo .env com as informações necessárias.
 Execute as migrações do banco de dados: php artisan migrate
 Inicie o servidor de desenvolvimento: php artisan serve
 Uso:
-Após a instalação, acesse a aplicação via navegador em http://localhost:8000 para começar a gerenciar vendas, estoque e clientes.
+Após a instalação, acesse a aplicação via navegador em http://localhost:8000 para começar a gerenciar vendas e clientes.
 
 Contribuição:
 Este é um projeto open-source. Novas funcionalidades e melhorias são bem-vindas! Para contribuir, faça um fork do repositório, crie uma branch com suas alterações e envie um pull request.

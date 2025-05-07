@@ -12,6 +12,13 @@ class PdfController extends Controller
     {
         $shop = Shop::first();
         $pdf = Pdf::loadView('livewire.sale.invoice', compact('sale', 'shop'));
-        return $pdf->stream('FV-'.$sale->id.'.pdf');
+        return $pdf->stream('Fatura FV-' . $sale->id . ' ' . $sale->customer->name . '.pdf');
+    }
+
+    public function receiptPdf(Sale $sale)
+    {
+        $shop = Shop::first();
+        $pdf = Pdf::loadView('livewire.sale.receipt', compact('sale', 'shop'));
+        return $pdf->stream('Recibo RC-' . $sale->id . ' ' . $sale->customer->name . '.pdf');
     }
 }

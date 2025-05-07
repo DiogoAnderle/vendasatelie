@@ -25,8 +25,6 @@ class ProductShow extends Component
     public $description;
     public $purchase_price;
     public $sale_price;
-    public $stock = 0;
-    public $min_stock = 5;
     public $active = 1;
     public $image;
     public $imageModel;
@@ -51,8 +49,6 @@ class ProductShow extends Component
         $this->description = $product->description;
         $this->purchase_price = $product->purchase_price;
         $this->sale_price = $product->sale_price;
-        $this->stock = $product->stock;
-        $this->min_stock = $product->min_stock;
         $this->active = $product->active;
         $this->imagemModel = $product->image;
 
@@ -68,8 +64,6 @@ class ProductShow extends Component
             'description' => 'max:255',
             'purchase_price' => 'numeric|nullable',
             'sale_price' => 'required|numeric',
-            'stock' => 'required|numeric',
-            'min_stock' => 'numeric|nullable',
             'image' => 'max:1024|nullable',
             'category_id' => 'required|numeric',
         ];
@@ -81,8 +75,6 @@ class ProductShow extends Component
         $product->description = $this->description;
         $product->purchase_price = $this->purchase_price;
         $product->sale_price = $this->sale_price;
-        $product->stock = $this->stock;
-        $product->min_stock = $this->min_stock;
         $product->active = $this->active;
         //$product->image; = $this->imagemModel
 
@@ -129,8 +121,6 @@ class ProductShow extends Component
             'description',
             'purchase_price',
             'sale_price',
-            'stock',
-            'min_stock',
             'active',
             'category_id'
         ]);

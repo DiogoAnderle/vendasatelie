@@ -31,8 +31,6 @@ class ProductComponent extends Component
     public $description;
     public $purchase_price;
     public $sale_price;
-    public $stock = 0;
-    public $min_stock = 5;
     public $active = 1;
     public $image;
     public $imageModel;
@@ -83,8 +81,6 @@ class ProductComponent extends Component
             'description' => 'max:255',
             'purchase_price' => 'numeric|nullable',
             'sale_price' => 'required|numeric',
-            'stock' => 'required|numeric',
-            'min_stock' => 'numeric|nullable',
             'image' => 'max:1024|nullable',
             'category_id' => 'required|numeric',
 
@@ -93,7 +89,6 @@ class ProductComponent extends Component
             'purchase_price.numeric' => 'O campo preço de compra deve ser numérico.',
             'sale_price.required' => 'O campo preço de venda é obrigatório.',
             'sale_price.numeric' => 'O campo preço de venda deve ser numérico.',
-            'min_stock.numeric' => 'O campo estoque mínimo deve ser numérico.',
             'category_id.required' => 'Selecione uma categoria.',
         ];
 
@@ -106,8 +101,6 @@ class ProductComponent extends Component
         $product->description = $this->description;
         $product->purchase_price = $this->purchase_price;
         $product->sale_price = $this->sale_price;
-        $product->stock = $this->stock;
-        $product->min_stock = $this->min_stock;
         $product->active = $this->active;
 
         $product->save();
@@ -133,8 +126,6 @@ class ProductComponent extends Component
         $this->description = $product->description;
         $this->purchase_price = $product->purchase_price;
         $this->sale_price = $product->sale_price;
-        $this->stock = $product->stock;
-        $this->min_stock = $product->min_stock;
         $this->active = $product->active;
         $this->imagemModel = $product->image;
 
@@ -142,14 +133,11 @@ class ProductComponent extends Component
     }
     public function update(Product $product)
     {
-        // dump($product);
         $rules = [
             'name' => ['required', 'min:3', 'max:255', Rule::unique('products')->ignore($this->Id)],
             'description' => 'max:255',
             'purchase_price' => 'numeric|nullable',
             'sale_price' => 'required|numeric',
-            'stock' => 'required|numeric',
-            'min_stock' => 'numeric|nullable',
             'image' => 'max:1024|nullable',
             'category_id' => 'required|numeric',
         ];
@@ -161,8 +149,6 @@ class ProductComponent extends Component
         $product->description = $this->description;
         $product->purchase_price = $this->purchase_price;
         $product->sale_price = $this->sale_price;
-        $product->stock = $this->stock;
-        $product->min_stock = $this->min_stock;
         $product->active = $this->active;
 
         $product->update();
@@ -195,7 +181,6 @@ class ProductComponent extends Component
         $product->delete();
 
         $this->dispatch('msg', 'Produto removido com sucesso.','success', '<i class="fas fa-check-circle"></i>');
-
     }
 
     public function cleanFormFields()
@@ -207,13 +192,9 @@ class ProductComponent extends Component
             'description',
             'purchase_price',
             'sale_price',
-            'stock',
-            'min_stock',
             'active',
             'category_id'
         ]);
         $this->resetErrorBag();
-
     }
-
 }

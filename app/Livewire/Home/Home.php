@@ -37,7 +37,6 @@ class Home extends Component
     public $itemsQuantity = 0;
     public $productsSalesQuantity = 0;
     public $productsQuantity = 0;
-    public $stockQuantity = 0;
     public $categoriesQuantity = 0;
     public $customersQuantity = 0;
 
@@ -93,7 +92,6 @@ class Home extends Component
         $this->monthProductsSalesQuantity = count(Item::whereMonth('sale_date', '=', date('m'))->groupBy('product_id')->get());
 
         $this->productsQuantity = Product::count();
-        $this->stockQuantity = number_format(Product::sum('stock'), 0, ",", ".");
         $this->categoriesQuantity = Category::count();
         $this->customersQuantity = Customer::count();
     }
@@ -111,7 +109,7 @@ class Home extends Component
 
         $productsQuery = $productsQuery
             ->orderBy('total_quantity', 'desc')
-            ->take(10)
+            ->take(30)
             ->get();
         return $productsQuery;
     }
@@ -140,7 +138,7 @@ class Home extends Component
             ->whereYear('sales.sale_date', date('Y'))
             ->groupBy('customers.id', 'customers.name')
             ->orderBy('total', 'desc')
-            ->take(10)
+            ->take(50)
             ->get();
     }
     public function set_best_sellers_and_buyers()

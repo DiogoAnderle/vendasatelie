@@ -54,11 +54,13 @@ Route::get('/clientes/{customer}', CustomerShow::class)->name('customers.show')-
 Route::get('/criar-vendas', SaleCreate::class)->name('sales.create')->middleware(['auth']);
 Route::get('/sales', SaleList::class)->name('sales.list')->middleware(['auth']);
 Route::get('/sales/{sale}', SaleShow::class)->name('sales.show')->middleware(['auth']);
-Route::get('/sales/{sale}/edit', SaleEdit::class)->name('sales.edit')->middleware(['auth']);
+Route::get('/sales/{sale}/edit', SaleEdit::class)->name('sales.edit');
 
 Route::get('/shop', ShopComponent::class)->name('shop')->middleware(['auth']);
 
 Route::get('/sales/invoice/{sale}', [PdfController::class, 'invoicePdf'])->name('sales.invoice')->middleware(['auth']);
+
+Route::get('/sales/receipt/{sale}', [PdfController::class, 'receiptPdf'])->name('sales.receipt')->middleware(['auth']);
 
 Route::get('/email', EmailComponent::class)->name('emails')->middleware(['auth']);
 Route::get('/offline', function(){

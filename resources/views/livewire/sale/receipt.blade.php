@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Fatura de Venda</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"> <style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <style>
         .b {
             border: 1px solid black;
         }
@@ -57,28 +59,28 @@
             font-weight: 500;
             margin: 0 auto;
         }
-                    /* Tachyons extensions */
-        
-                    .npurple-1 {
-                color: #820AD1;
-            }
-        
-            .n-grey-777 {
-                color: #777777
-            }
-        
-            #qr-data {
-                color: black;
-                background-color: white;
-            }
-        
-            #qr-container {
-                width: 12em;
-                height: 12em;
-                mix-blend-mode: normal;
-                border-color: #820AD1;
-            }
-        
+
+        /* Tachyons extensions */
+
+        .npurple-1 {
+            color: #820AD1;
+        }
+
+        .n-grey-777 {
+            color: #777777
+        }
+
+        #qr-data {
+            color: black;
+            background-color: white;
+        }
+
+        #qr-container {
+            width: 12em;
+            height: 12em;
+            mix-blend-mode: normal;
+            border-color: #820AD1;
+        }
     </style>
 </head>
 
@@ -86,27 +88,26 @@
     <table width="100%">
         <tr>
             <td width="25%">
-                <img src="{{ public_path() . '/' . 'storage/' . $shop->image->url }}" alt="logo-empresa"
-                    width="150px">
+                <img src="{{ public_path() . '/' . 'storage/' . $shop->image->url }}" alt="" srcset=""  width="150px">
             </td>
             <td width="45%" style="text-align: center;">
                 <h1>{{ $shop->name }}</h1>
                 @if ($shop->slogan)
-                    <p>{{ $shop->slogan }}</p>
+                <p>{{ $shop->slogan }}</p>
                 @endif
             </td>
             <td width="30%">
                 @if ($shop->phone_number)
-                    <span class="shop-info"><b>Telefone:</b>{{ $shop->phone_number }}</span>
+                <span class="shop-info"><b>Telefone:</b>{{ $shop->phone_number }}</span>
                 @endif
                 @if ($shop->email)
-                    <span class="shop-info"><b>E-mail:</b>{{ $shop->email }}</span>
+                <span class="shop-info"><b>E-mail:</b>{{ $shop->email }}</span>
                 @endif
                 @if ($shop->address)
-                    <span class="shop-info"><b>Endereço:</b>{{ $shop->address }}</span>
+                <span class="shop-info"><b>Endereço:</b>{{ $shop->address }}</span>
                 @endif
                 @if ($shop->city)
-                    <span class="shop-info"><b>Cidade:</b>{{ $shop->city }}</span>
+                <span class="shop-info"><b>Cidade:</b>{{ $shop->city }}</span>
                 @endif
             </td>
         </tr>
@@ -123,27 +124,27 @@
                 <span class="shop-info"><b>Nome: </b>{{ $sale->customer->name }}</span>
 
                 @if ($sale->customer->occupation)
-                    <span class="shop-info"><b>Profissão: </b>{{ $sale->customer->occupation }}</span>
+                <span class="shop-info"><b>Profissão: </b>{{ $sale->customer->occupation }}</span>
                 @endif
 
                 @if ($sale->customer->email)
-                    <span class="shop-info"><b>E-mail: </b>{{ $sale->customer->email }}</span>
+                <span class="shop-info"><b>E-mail: </b>{{ $sale->customer->email }}</span>
                 @endif
 
                 @if ($sale->customer->phone_number)
-                    <span class="shop-info"><b>Telefone: </b>{{ $sale->customer->phone_number }}</span>
+                <span class="shop-info"><b>Telefone: </b>{{ $sale->customer->phone_number }}</span>
                 @endif
 
                 @if ($sale->customer->birth_date)
-                    <span class="shop-info"><b>Data Nascimento: </b>
-                        {{ date('d/m/Y', strtotime($sale->customer->birth_date)) }}</span>
+                <span class="shop-info"><b>Data Nascimento: </b>
+                    {{ date('d/m/Y', strtotime($sale->customer->birth_date)) }}</span>
                 @endif
 
             </td>
 
             <td width="33%">
                 <h2 style="text-align: center;">
-                    Fatura: <span class="fatura-id">FV-{{ $sale->id }}</span>
+                    Recibo: <span class="fatura-id">RC-{{ $sale->id }}</span>
                 </h2>
             </td>
             <td width="33%">
@@ -157,24 +158,24 @@
     <table width="100%" class="products">
         <thead>
             <th>#</th>
-            <th>Nome</th>
-            <th>Preço</th>
-            <th>Items</th>
+            <th>Descrição</th>
+            <th>Valor</th>
+            <th>Quantidade</th>
             <th>Subtotal</th>
         </thead>
         <tbody>
             @forelse ($sale->items as $item)
-                <tr>
-                    <td>{{ ++$loop->index }}</td>
-                    <td>{{ $item->name }}</td>
-                    <td>{{ currencyBRLFormat($item->price) }}</td>
-                    <td>
-                        <div class="badge">{{ $item->quantity }}</div>
-                    </td>
-                    <td>{{ currencyBRLFormat($item->price * $item->quantity) }}</td>
-                </tr>
+            <tr>
+                <td>{{ ++$loop->index }}</td>
+                <td>{{ $item->name }}</td>
+                <td>{{ currencyBRLFormat($item->price) }}</td>
+                <td>
+                    <div class="badge">{{ $item->quantity }}</div>
+                </td>
+                <td>{{ currencyBRLFormat($item->price * $item->quantity) }}</td>
+            </tr>
             @empty
-                <td colspan="5">Sem Registros</td>
+            <td colspan="5">Sem Registros</td>
             @endforelse
             <tr>
                 <td colspan="3"></td>
@@ -184,29 +185,33 @@
             <tr>
                 <td colspan="3"></td>
                 <td><b>Total:</b></td>
-                <td width="150px"><b>{{ currencyBRLFormat($sale->net_value) }}</b></td>
+                <td><b>{{ currencyBRLFormat($sale->net_value) }}</b></td>
             </tr>
 
         </tbody>
     </table>
 
-
-    <table width="100%">
+    <table width="100%" style="text-align: center; margin-top:1rem;">
         <tr>
-            <td width="100%" style="text-align: center; margin-top:5rem;">
-                        {{ strtoupper($sale->order_notes) }}
-                 </div>
+            <td>
+                Recebemos o valor de <b>{{ currencyBRLFormat($sale->net_value) }}</b> de <b>{{ $sale->customer->name
+                    }}</b>
+                <br>
             </td>
         </tr>
-    </table>
-
-
-    <table width="100%" style="text-align: center; margin-top:1rem;">
+        <tr>
+            <td>
+                Referente aos produto(s) acima destacado(s).
+                <br>
+            </td>
+        </tr>
+        <tr>
             <td>
                 <br>
                 <br>
                 <br>
                 __________________________________________ <br>
+                <br>
                 <b>{{ $sale->user->name }}</b> <br>
                 Vendedor
             </td>
@@ -214,12 +219,7 @@
     </table>
     <p style="text-align: center;">Agradeçemos por sua compra!</p>
 
-    <div style="text-align: center;">
-        <h4>Chave Pix CNPJ</h4>
-        <h3>47813342000194</h3>  
-    </div>
-    
-    
+
     <!-- <table width="100%" style="text-align: center; margin: 2rem 3rem;">
         <tr>
             <td width="50%" style="text-align: center; margin-top:5rem;">

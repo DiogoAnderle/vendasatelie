@@ -20,7 +20,7 @@ class SaleEdit extends Component
 
     // Class Properties
     public $search = '';
-    public $quantity = 10;
+    public $quantity = 15;
     public $totalRegistros = 0;
 
     public Sale $sale;
@@ -55,7 +55,6 @@ class SaleEdit extends Component
         $itemsIds = [];
 
         foreach ($this->sale->items as $item) {
-            Product::find($item->product_id)->increment('stock', $item->quantity);
             $item->delete();
         }
 
@@ -68,8 +67,6 @@ class SaleEdit extends Component
             $item->product_id = $product->id;
             $item->sale_date = date('Y-m-d');
             $item->save();
-
-            Product::find($item->product_id)->decrement('stock', $item->quantity);
 
             $itemsIds += [$item->id => ['quantity' => $product->quantity, 'date_item_sale' => date('Y-m-d')]];
         }
@@ -89,24 +86,47 @@ class SaleEdit extends Component
     {
         Cart::add($product);
     }
+    #[On('quantityUpdated')]
+    public function updateQuantity($productId, $newQuantity)
+    {
+        $newQuantity = intval($newQuantity);
+
+        if ($newQuantity <= 0) {
+            \Cart::session(userId())->remove($productId);
+            $this->updatingValue = 0;
+            return;
+        }
+
+        $cartItem = \Cart::session(userId())->get($productId);
+        if (!$cartItem) return;
+
+        \Cart::session(userId())->update($productId, [
+            'quantity' => [
+                'relative' => false,
+                'value' => $newQuantity,
+            ],
+        ]);
+
+        $this->updatingValue = 0;
+    }
 
     // Decrement Item quantity on cart
     public function decrement($id)
     {
         Cart::decrement($id);
-        $this->dispatch("incrementStock.{$id}");
+       
     }
     // Increment Item quantity on cart
     public function increment($id)
     {
         Cart::increment($id);
-        $this->dispatch("decrementStock.{$id}");
+       
     }
 
     public function removeItem($id, $quantity)
     {
         Cart::removeItem($id);
-        $this->dispatch("returnStock.{$id}", $quantity);
+       
     }
 
     public function getItemsToCart()

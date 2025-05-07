@@ -21,6 +21,7 @@
             <x-slot:thead>
                 <th>ID</th>
                 <th>Status</th>
+                <th>NF</th>
                 <th>Nome</th>
                 <th>Total</th>
                 <th>Acrésc./Desc.</th>
@@ -51,6 +52,13 @@
                         </td>
                     
                     @endif
+
+                   
+                        <td>
+                            <span> {!! $sale->invoiceLabel !!}</span>
+                        </td>
+                    
+
                     <td>{{ $sale->customer->name }}</td>
                     <td>
                         <span class="badge badge-secondary">{{ currencyBRLFormat($sale->total) }}</span>
@@ -72,9 +80,16 @@
 
                     <td>{{ date('d/m/Y', strtotime($sale->sale_date)) }}</td>
                     <td>
-                        <a href="{{ route('sales.invoice', $sale) }}" target="_blank" class="btn bg-navy btn-sm"
+                        <a href="{{ route('sales.invoice', $sale) }}" target="_blank" class="btn bg-danger btn-sm"
                             title="Imprimir Fatura">
-                            <i class="far fa-file-pdf text-white"></i>
+                            <i class="fas fa-file-invoice-dollar text-white"></i>
+                        </a>
+                    </td>
+
+                    <td>
+                        <a href="{{ route('sales.receipt', $sale) }}" target="_blank" class="btn bg-navy btn-sm"
+                            title="Imprimir Recibo">
+                            <i class="fas fa-file-invoice text-white"></i>
                         </a>
                     </td>
                     <td>

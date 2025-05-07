@@ -25,14 +25,6 @@ class Product extends Model
     }
 
     //Atributos
-    protected function stockLabel(): Attribute
-    {
-        return Attribute::make(
-            get: function () {
-                return $this->attributes['stock'] >= $this->attributes['min_stock'] ? '<span class="badge badge-pill  badge-success">' . $this->attributes['stock'] . '</span>' : '<span class="badge badge-pill badge-danger">' . $this->attributes['stock'] . '</span>';
-            }
-        );
-    }
 
     protected function activeLabel(): Attribute
     {

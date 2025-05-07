@@ -30,6 +30,9 @@ class SaleCreate extends Component
     public $customerId = 1;
     public $customer = '';
     public $status = 0;
+    public $invoice = 0;
+    public $order_notes;
+    public $quantities = [];
 
     public function render()
     {
@@ -41,8 +44,6 @@ class SaleCreate extends Component
             $this->netValue = Cart::getTotal() + floatval($this->additionOrDiscount);
 
         }
-
-
         return view(
             'livewire.sale.sale-create',
             [
@@ -71,6 +72,8 @@ class SaleCreate extends Component
             $sale->user_id = userID();
             $sale->customer_id = $this->customerId;
             $sale->status = $this->status;
+            $sale->invoice = $this->invoice;
+            $sale->order_notes = $this->order_notes;
             $sale->sale_date = date('Y-m-d');
             $sale->save();
 
@@ -91,13 +94,14 @@ class SaleCreate extends Component
                     "date_item_sale" => date('Y-m-d')
                 ]);
 
-                Product::find($product->id)->decrement('stock', $product->quantity);
+    
             }
 
             Cart::clear();
-            $this->reset(['additionOrDiscount', 'netValue', 'customer']);
-            $this->dispatch('msg', 'Venda criada com sucesso.', 'success', '<i class="fas fa-check-circle"></i>');;
-
+            $this->reset(['additionOrDiscount', 'netValue', 'customer', 'order_notes']);
+            $this->status = false;
+            $this->invoice = false;
+            $this->dispatch('msg', 'Venda criada com sucesso.', 'success', '<i class="fas fa-check-circle"></i>');
         });
     }
 
@@ -115,29 +119,44 @@ class SaleCreate extends Component
         Cart::add($product);
     }
 
+    #[On('quantityUpdated')]
+    public function updateQuantity($productId, $newQuantity)
+    {
+        $newQuantity = intval($newQuantity);
+    
+        if ($newQuantity <= 0) {
+            \Cart::session(userID())->remove($productId);
+            $this->updatingValue = 0;
+            return;
+        }
+    
+        $cartItem = \Cart::session(userID())->get($productId);
+        if (!$cartItem) return;
+    
+        // Atualiza a quantidade no carrinho
+        \Cart::session(userID())->update($productId, [
+            'quantity' => [
+                'relative' => false,
+                'value' => $newQuantity,
+            ],
+        ]);
+    
+        $this->updatingValue = 0; // Força atualização de valores
+    }
+
     #[On('customerId')]
     public function customerId($id = 1)
     {
         $this->customerId = $id;
     }
     //Decrement Item quantity on cart
-    public function decrement($id)
-    {
-        Cart::decrement($id);
-        $this->dispatch("incrementStock.{$id}");
-    }
-    // Increment Item quantity on cart
-    public function increment($id)
-    {
-        Cart::increment($id);
-        $this->dispatch("decrementStock.{$id}");
-    }
+    
 
     //Remove Item on cart
     public function removeItem($id, $quantity)
     {
         Cart::removeItem($id);
-        $this->dispatch("returnStock.{$id}", $quantity);
+
     }
 
     //Clean Cart

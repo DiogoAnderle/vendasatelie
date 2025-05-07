@@ -220,8 +220,6 @@
                                 <th>Imagem</th>
                                 <th>Nome</th>
                                 <th>Preço venda</th>
-                                <th>Estoque</th>
-
                             </tr>
                         </thead>
                         <tbody>
@@ -236,11 +234,7 @@
                                     </td>
                                     <td>{{ $product->name }}</td>
                                     <td>{!! $product->price !!}</td>
-                                    <td>
 
-                                        {!! $product->stockLabel !!}
-
-                                    </td>
 
                                 </tr>
 

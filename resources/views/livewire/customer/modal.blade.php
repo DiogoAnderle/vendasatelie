@@ -23,7 +23,7 @@
             {{-- Input Email --}}
             <div class="form-group col-md-6">
                 <label for="email">E-mail:</label>
-                <input wire:model.lazy='email' type="email" class="form-control" placeholder="Nome" id="email">
+                <input wire:model.lazy='email' type="email" class="form-control" placeholder="E-mail" id="email">
                 @error('email')
                     <span class="text-danger"><small><strong>* {{ $message }}</strong></small></span>
                 @enderror
@@ -33,7 +33,7 @@
             <div class="form-group col-md-6">
                 <label for="phone_number">Telefone:</label>
                 <input wire:model.debounce='phone_number'x-mask="(99)9 9999-9999" type="tel" class="form-control"
-                    placeholder="Nome" id="phone_number">
+                    placeholder="Telefone" id="phone_number">
                 @error('phone_number')
                     <span class="text-danger"><small><strong>* {{ $message }}</strong></small></span>
                 @enderror

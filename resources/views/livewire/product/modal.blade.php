@@ -55,25 +55,6 @@
                   @enderror
               </div>
 
-              {{-- Input Stock --}}
-              <div class="form-group col-md-6">
-                  <label for="stock" class="form-label">Estoque:</label>
-                  <input wire:model='stock' type="number" min="0" class="form-control"id="stock"
-                      placeholder="Estoque">
-                  @error('stock')
-                     <span class="text-danger"><small><strong>* {{ $message }}</strong></small></span>
-                  @enderror
-              </div>
-
-              {{-- Input Min Stock --}}
-              <div class="form-group col-md-6">
-                  <label for="min_stock" class="form-label">Estoque Mínimo:</label>
-                  <input wire:model='min_stock' type="number" min="0" class="form-control"id="min_stock"
-                      placeholder="Nome do Produto">
-                  @error('min_stock')
-                     <span class="text-danger"><small><strong>* {{ $message }}</strong></small></span>
-                  @enderror
-              </div>
 
               {{-- Checkbox Active --}}
               <div class="form-group col-md-3">

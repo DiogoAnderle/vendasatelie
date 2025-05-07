@@ -32,34 +32,6 @@
                         <hr>
 
                         <div class="row">
-                            <!-- Caja stock -->
-                            <div class="col-md-6">
-                                <div class="info-box">
-                                    <span class="info-box-icon bg-info">
-                                        <i class="fas fa-box-open"></i>
-                                    </span>
-                                    <div class="info-box-content">
-                                        <span class="info-box-text">Estoque</span>
-                                        <span class="info-box-number">{!! $product->stockLabel !!}</span>
-                                    </div>
-                                    <!-- /.info-box-content -->
-                                </div>
-                            </div>
-
-                            <!-- Caja stock minimo-->
-                            <div class="col-md-6">
-                                <div class="info-box">
-                                    <span class="info-box-icon bg-info">
-                                        <i class="fas fa-box-open"></i>
-                                    </span>
-                                    <div class="info-box-content">
-                                        <span class="info-box-text">Estoque mínimo</span>
-                                        <span class="info-box-number">
-                                            <span class="badge badge-success">{{ $product->min_stock }}</span>
-                                    </div>
-                                    <!-- /.info-box-content -->
-                                </div>
-                            </div>
 
                             <!-- Caja categoria -->
                             <div class="col-md-6">

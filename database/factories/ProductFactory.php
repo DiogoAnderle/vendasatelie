@@ -21,8 +21,6 @@ class ProductFactory extends Factory
             'description' => $this->faker->sentence(),
             'purchase_price' => $this->faker->randomNumber(3, true),
             'sale_price' => $this->faker->randomNumber(4, true),
-            'stock' => $this->faker->randomNumber(2, true),
-            'min_stock' => $this->faker->randomNumber(3, true),
             'category_id' => $this->faker->numberBetween(1, \App\Models\Category::count()),
         ];
     }
