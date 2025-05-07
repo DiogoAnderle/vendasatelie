@@ -12,37 +12,124 @@ use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-#[Title('Vendas')]
+#[Title('Editar Venda')]
 class SaleEdit extends Component
 {
     use WithPagination;
-
 
     // Class Properties
     public $search = '';
     public $quantity = 15;
     public $totalRegistros = 0;
+    public array $productsInCartIds = [];
 
     public Sale $sale;
-
-    public $cart;
-
+    public $customer;
     public $loadCart = false;
+
     public function render()
     {
-        if (!$this->loadCart) {
-            $this->getItemsToCart();
-        } else {
-            $this->cart = Cart::getCart();
-        }
-
         $this->totalRegistros = Product::count();
 
         return view('livewire.sale.sale-edit', [
             'products' => $this->products,
+            'cart' => Cart::getCart(),
             'totalItems' => Cart::totalItems(),
             'total' => Cart::getTotal(),
         ]);
+    }
+
+    public function mount()
+    {
+        $this->loadProductsInCartIds();
+        $this->getItemsToCart();
+        $this->loadCart = true;
+        $this->customer = $this->sale->customer; // Carrega o cliente da venda
+
+    }
+
+    public function loadProductsInCartIds()
+    {
+        $this->productsInCartIds = \Cart::session(userId())->getContent()->pluck('id')->toArray();
+    }
+
+    public function isProductInCart($productId): bool
+    {
+        return in_array($productId, $this->productsInCartIds);
+    }
+
+    // Add Item on cart
+    #[On('add-product')]
+    public function addProduct(Product $product)
+    {
+        Cart::add($product);
+        $this->loadProductsInCartIds();
+    }
+
+    #[On('quantityUpdated')]
+    public function updateQuantity($productId, $newQuantity)
+    {
+        $newQuantity = intval($newQuantity);
+
+        if ($newQuantity <= 0) {
+            \Cart::session(userId())->remove($productId);
+            return;
+        }
+
+        $cartItem = \Cart::session(userId())->get($productId);
+        if (!$cartItem) {
+            return;
+        }
+
+        \Cart::session(userId())->update($productId, [
+            'quantity' => [
+                'relative' => false,
+                'value' => $newQuantity,
+            ],
+        ]);
+        $this->loadProductsInCartIds();
+    }
+
+    // Decrement Item quantity on cart
+    public function decrement($id)
+    {
+        Cart::decrement($id);
+        $this->loadProductsInCartIds();
+    }
+
+    // Increment Item quantity on cart
+    public function increment($id)
+    {
+        Cart::increment($id);
+        $this->loadProductsInCartIds();
+    }
+
+    public function removeItem($id, $quantity)
+    {
+        Cart::removeItem($id);
+        $this->loadProductsInCartIds();
+    }
+
+    public function getItemsToCart()
+    {
+        if ($this->loadCart) {
+            return;
+        }
+        \Cart::session(userId())->clear();
+        foreach ($this->sale->items as $item) {
+            $product = Product::find($item->product_id);
+            if ($product) {
+                \Cart::session(userId())->add([
+                    'id' => $item->product_id,
+                    'name' => $item->name,
+                    'price' => $item->price,
+                    'quantity' => $item->quantity,
+                    'attributes' => [],
+                    'associatedModel' => $product,
+                ]);
+            }
+        }
+        $this->loadProductsInCartIds();
     }
 
     public function editSale()
@@ -72,85 +159,7 @@ class SaleEdit extends Component
         }
         $this->sale->items()->sync($itemsIds);
         $this->dispatch('msg', 'Venda editada corretamente', 'success', '<i class="fas fa-check-circle"></i>');
-
-    }
-
-    public function mount()
-    {
-        //$this->cart = collect();
-    }
-
-    // Add Item on cart
-    #[On('add-product')]
-    public function addProduct(Product $product)
-    {
-        Cart::add($product);
-    }
-    #[On('quantityUpdated')]
-    public function updateQuantity($productId, $newQuantity)
-    {
-        $newQuantity = intval($newQuantity);
-
-        if ($newQuantity <= 0) {
-            \Cart::session(userId())->remove($productId);
-            $this->updatingValue = 0;
-            return;
-        }
-
-        $cartItem = \Cart::session(userId())->get($productId);
-        if (!$cartItem) return;
-
-        \Cart::session(userId())->update($productId, [
-            'quantity' => [
-                'relative' => false,
-                'value' => $newQuantity,
-            ],
-        ]);
-
-        $this->updatingValue = 0;
-    }
-
-    // Decrement Item quantity on cart
-    public function decrement($id)
-    {
-        Cart::decrement($id);
-       
-    }
-    // Increment Item quantity on cart
-    public function increment($id)
-    {
-        Cart::increment($id);
-       
-    }
-
-    public function removeItem($id, $quantity)
-    {
-        Cart::removeItem($id);
-       
-    }
-
-    public function getItemsToCart()
-    {
-        foreach ($this->sale->items as $item) {
-            $product = Product::find($item->product_id);
-            $existingItem = \Cart::session(userId())->get($item->product_id);
-
-            if ($existingItem) {
-                $this->cart = Cart::getCart();
-                return;
-            } else {
-                \Cart::session(userId())->add([
-                    'id' => $item->product_id,
-                    'name' => $item->name,
-                    'price' => $item->price,
-                    'quantity' => $item->quantity,
-                    'attributes' => [],
-                    'associatedModel' => $product,
-                ]);
-            }
-        }
-        $this->cart = Cart::getCart();
-        $this->loadCart = true;
+        $this->loadProductsInCartIds(); // Garante que a lista seja atualizada após a edição
     }
 
     #[Computed()]

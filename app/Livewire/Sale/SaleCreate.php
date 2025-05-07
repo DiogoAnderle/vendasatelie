@@ -20,8 +20,9 @@ class SaleCreate extends Component
 
     // Class Properties
     public $search = '';
-    public $quantity = 10;
+    public $registers = 15;
     public $totalRegistros = 0;
+    public array $productsInCartIds = [];
 
     // Payment Properties
     public $additionOrDiscount = 0;
@@ -36,13 +37,11 @@ class SaleCreate extends Component
 
     public function render()
     {
-
         $this->totalRegistros = Product::count();
 
         if ($this->updatingValue == 0) {
             $this->netValue = Cart::getTotal();
             $this->netValue = Cart::getTotal() + floatval($this->additionOrDiscount);
-
         }
         return view(
             'livewire.sale.sale-create',
@@ -53,6 +52,93 @@ class SaleCreate extends Component
                 'totalItems' => Cart::totalItems(),
             ]
         );
+    }
+
+    public function mount()
+    {
+        $this->loadProductsInCartIds();
+    }
+
+    public function loadProductsInCartIds()
+    {
+        $this->productsInCartIds = \Cart::session(userId())->getContent()->pluck('id')->toArray();
+    }
+
+    public function isProductInCart($productId): bool
+    {
+        return in_array($productId, $this->productsInCartIds);
+    }
+
+    #[On('add-product')]
+    public function addProduct($productId)
+    {
+        $product = Product::find($productId);
+        if ($product) {
+            \Cart::session(userId())->add([
+                'id' => $product->id,
+                'name' => $product->name,
+                'price' => $product->sale_price,
+                'quantity' => 1,
+                'attributes' => [],
+                'associatedModel' => $product,
+            ]);
+            $this->quantities[$product->id] = 1;
+            $this->updatingValue = 0;
+            $this->loadProductsInCartIds(); // Atualiza a lista imediatamente
+        }
+    }
+
+    #[On('quantityUpdated')]
+    public function updateQuantity($productId, $newQuantity)
+    {
+        $newQuantity = intval($newQuantity);
+
+        if ($newQuantity <= 0) {
+            \Cart::session(userId())->remove($productId);
+            $this->updatingValue = 0;
+            return;
+        }
+
+        $cartItem = \Cart::session(userId())->get($productId);
+        if (!$cartItem) {
+            return;
+        }
+
+        // Atualiza a quantidade no carrinho
+        \Cart::session(userId())->update($productId, [
+            'quantity' => [
+                'relative' => false,
+                'value' => $newQuantity,
+            ],
+        ]);
+
+        $this->updatingValue = 0; // Força atualização de valores
+        $this->loadProductsInCartIds(); // Atualiza a lista após alterar a quantidade
+    }
+
+    #[On('customerId')]
+    public function customerId($id = 1)
+    {
+        $this->customerId = $id;
+    }
+
+    //Remove Item on cart
+    public function removeItem($id, $quantity)
+    {
+        Cart::removeItem($id);
+        $this->loadProductsInCartIds(); // Atualiza a lista imediatamente
+    }
+
+    //Clean Cart
+    public function clear()
+    {
+        Cart::clear();
+
+        $this->netValue = 0;
+        $this->additionOrDiscount = 0;
+        $this->dispatch('msg', 'Venda cancelada com sucesso.', 'success', '<i class="fas fa-check-circle"></i>');
+        $this->dispatch('refreshProducts');
+        $this->loadProductsInCartIds(); // Atualiza a lista imediatamente
     }
 
     //Create Sale
@@ -86,15 +172,12 @@ class SaleCreate extends Component
                 $item->quantity = $product->quantity;
                 $item->product_id = $product->id;
                 $item->sale_date = date('Y-m-d');
-
                 $item->save();
 
                 $sale->items()->attach($item->id, [
                     "quantity" => $product->quantity,
-                    "date_item_sale" => date('Y-m-d')
+                    "date_item_sale" => date('Y-m-d'),
                 ]);
-
-    
             }
 
             Cart::clear();
@@ -102,6 +185,7 @@ class SaleCreate extends Component
             $this->status = false;
             $this->invoice = false;
             $this->dispatch('msg', 'Venda criada com sucesso.', 'success', '<i class="fas fa-check-circle"></i>');
+            $this->loadProductsInCartIds(); // Garante que a lista esteja vazia após a venda
         });
     }
 
@@ -110,65 +194,6 @@ class SaleCreate extends Component
         $this->updatingValue = 1;
         $this->netValue = Cart::getTotal();
         $this->netValue = $value + floatval($this->additionOrDiscount);
-
-    }
-
-    #[On('add-product')]
-    public function addProduct(Product $product)
-    {
-        Cart::add($product);
-    }
-
-    #[On('quantityUpdated')]
-    public function updateQuantity($productId, $newQuantity)
-    {
-        $newQuantity = intval($newQuantity);
-    
-        if ($newQuantity <= 0) {
-            \Cart::session(userID())->remove($productId);
-            $this->updatingValue = 0;
-            return;
-        }
-    
-        $cartItem = \Cart::session(userID())->get($productId);
-        if (!$cartItem) return;
-    
-        // Atualiza a quantidade no carrinho
-        \Cart::session(userID())->update($productId, [
-            'quantity' => [
-                'relative' => false,
-                'value' => $newQuantity,
-            ],
-        ]);
-    
-        $this->updatingValue = 0; // Força atualização de valores
-    }
-
-    #[On('customerId')]
-    public function customerId($id = 1)
-    {
-        $this->customerId = $id;
-    }
-    //Decrement Item quantity on cart
-    
-
-    //Remove Item on cart
-    public function removeItem($id, $quantity)
-    {
-        Cart::removeItem($id);
-
-    }
-
-    //Clean Cart
-    public function clear()
-    {
-        Cart::clear();
-
-        $this->netValue = 0;
-        $this->additionOrDiscount = 0;
-        $this->dispatch('msg', 'Venda cancelada com sucesso.', 'success', '<i class="fas fa-check-circle"></i>');
-        $this->dispatch('refreshProducts');
-
     }
 
     #[Computed()]
@@ -179,6 +204,6 @@ class SaleCreate extends Component
             ->orWhere('description', 'like', '%' . $this->search . '%')
             ->orWhere('sale_price', 'like', '%' . $this->search . '%')
             ->orderBy('id', 'asc')
-            ->paginate($this->quantity);
+            ->paginate($this->registers);
     }
 }

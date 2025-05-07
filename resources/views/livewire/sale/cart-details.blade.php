@@ -43,12 +43,11 @@
                             <td>{{ $product->name }}</td>
                             <td>{!! currencyBRLFormat($product->price) !!}</td>
                             <td>
-                                <div wire:ignore>
-                                    <input type="number" min="1" class="form-control text-center w-auto border-0"
+                                    <input type="number" min="1" class="form-control bg-transparent text-center border-0"
                                         wire:change.defer="updateQuantity({{ $product['id'] }}, $event.target.value)"
                                         wire:model.lazy="quantities.{{ $product['id'] }}" value="{{ $product['quantity'] }}"
-                                        id="quantityInput_{{ $product['id'] }}" />
-                                </div>
+                                        id="quantityInput_{{ $product['id'] }}" style="height: 28px;"/>
+
                             </td>
                             <td>{{ currencyBRLFormat($product->quantity * $product->price) }}</td>
                             <td>

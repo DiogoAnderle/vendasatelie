@@ -4,3 +4,10 @@
     height: 0;
 }
 
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    /* Oculta as setas em navegadores WebKit */
+    margin: 0;
+    /* Remove o espaço em branco que era ocupado pelas setas */
+}
