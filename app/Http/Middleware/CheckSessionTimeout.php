@@ -18,10 +18,10 @@ class CheckSessionTimeout
     {
         if (!Auth::check()) {
             if ($request->ajax() || $request->wantsJson()) {
-                return response()->json(['message' => 'Sessão expirada. Faça login novamente.'], 401);
+                return response()->json(['msg' => 'Sessão expirada. Faça login novamente.'], 401);
             }
 
-            return redirect()->route('login')->with('error', 'Sessão expirada. Faça login novamente.');
+            return redirect()->route('login')->with('session_expired', 'Sessão expirada. Faça login novamente.');
         }
 
         return $next($request);
