@@ -9,6 +9,7 @@ function userID()
 //Return BRL currency format
 function currencyBRLFormat($number)
 {
+    $number = floatval($number);
     return 'R$ ' . number_format($number, 2, ',', '.');
 }
 

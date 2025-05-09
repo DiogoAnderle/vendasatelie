@@ -17,6 +17,12 @@
 
                 <livewire:sale.customer-sale :customerId="$sale->customer_id" />
 
+                @include('livewire.sale.payment-card')
+                {{-- Status --}}
+                @include('livewire.sale.sale-status')
+                {{-- Status --}}
+                @include('livewire.sale.order-notes')
+
 
             </div>
             {{-- Products --}}

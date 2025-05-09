@@ -21,6 +21,16 @@ class SaleEdit extends Component
     public $search = '';
     public $registers = 15;
     public $totalRegistros = 0;
+
+    // Payment Properties
+    public $additionOrDiscount = 0;
+    public $netValue = 0;
+    public $updatingValue = 0;
+
+    public $status = 0;
+    public $invoice = 0;
+    public $order_notes;
+
     public array $productsInCartIds = [];
 
     public Sale $sale;
@@ -31,11 +41,16 @@ class SaleEdit extends Component
     {
         $this->totalRegistros = Product::count();
 
+        if ($this->updatingValue == 0) {
+            $this->netValue = Cart::getTotal();
+            $this->netValue = Cart::getTotal() + floatval($this->additionOrDiscount);
+        }
+
         return view('livewire.sale.sale-edit', [
             'products' => $this->products,
             'cart' => Cart::getCart(),
             'totalItems' => Cart::totalItems(),
-            'total' => Cart::getTotal(),
+            'total' => Cart::getTotal() + floatval($this->additionOrDiscount),
         ]);
     }
 
@@ -43,6 +58,14 @@ class SaleEdit extends Component
     {
         $this->sale = $sale;
         $this->customer_id = $sale->customer_id;
+
+        $this->status = $sale->status;
+        $this->invoice = $sale->invoice;
+        $this->order_notes = $sale->order_notes;
+        $this->total = $sale->net_value;
+        $this->netValue = $sale->net_value ?? 0; // Se for null, usa 0
+        $this->additionOrDiscount = $sale->addition_discount ?? 0; // Se for null, usa 0
+
 
         $this->loadProductsInCartIds();
         $this->getItemsToCart();
@@ -91,20 +114,6 @@ class SaleEdit extends Component
         $this->loadProductsInCartIds();
     }
 
-    // Decrement Item quantity on cart
-    public function decrement($id)
-    {
-        Cart::decrement($id);
-        $this->loadProductsInCartIds();
-    }
-
-    // Increment Item quantity on cart
-    public function increment($id)
-    {
-        Cart::increment($id);
-        $this->loadProductsInCartIds();
-    }
-
     public function removeItem($id, $quantity)
     {
         Cart::removeItem($id);
@@ -142,9 +151,19 @@ class SaleEdit extends Component
 
     public function editSale()
     {
+        $cart = Cart::getCart();
+        if (count($cart) == 0) {
+            $this->dispatch('msg', 'Venda não pode ser editada, carrinho vazio!', 'danger', '<i class="fas fa-exclamation-triangle"></i>');
+            return;
+        }
+
         $this->sale->total = Cart::getTotal();
-        $this->sale->net_value = $this->sale->total;
+        $this->sale->net_value = $this->netValue;
         $this->sale->customer_id = $this->customer_id; // Atualiza o customer_id da venda
+        $this->sale->status = $this->status;
+        $this->sale->invoice = $this->invoice;
+        $this->sale->order_notes = $this->order_notes;
+        $this->sale->addition_discount = $this->additionOrDiscount;
 
         $this->sale->update();
 

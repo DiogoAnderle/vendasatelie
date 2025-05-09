@@ -23,16 +23,9 @@
                     </div>
 
                     <input type="number" wire:model.live="additionOrDiscount" class="form-control"
-                        id="additionOrDiscount" min="" value="0">
-
+                        id="additionOrDiscount" min="">
                 </div>
-                @if ($additionOrDiscount > 0)
-                    <p>
-                        <strong>Total por extenso:</strong>
-                        {{ numbersInFull($additionOrDiscount) }}
 
-                    </p>
-                @endif
             </div>
             <div class="col-6">
                 <label for="netValue">Total:</label>
@@ -58,6 +51,6 @@
             </div>
         </div>
         {{-- Input checkbox status --}}
-        
+
     </div>
 </div>

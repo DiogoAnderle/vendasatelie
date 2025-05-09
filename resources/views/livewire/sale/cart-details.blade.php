@@ -35,7 +35,7 @@
                 </thead>
                 <tbody>
                     @forelse ($cart as $product)
-                        <tr> 
+                        <tr>
                             <td>{{ $product->id }}</td>
                             <td>
                                 <x-image :item="$product->associatedModel" size="40" />
@@ -43,10 +43,10 @@
                             <td>{{ $product->name }}</td>
                             <td>{!! currencyBRLFormat($product->price) !!}</td>
                             <td>
-                                    <input type="number" min="1" class="form-control bg-transparent text-center border-0"
-                                        wire:change.defer="updateQuantity({{ $product['id'] }}, $event.target.value)"
-                                        wire:model.lazy="quantities.{{ $product['id'] }}" value="{{ $product['quantity'] }}"
-                                        id="quantityInput_{{ $product['id'] }}" style="height: 28px;"/>
+                                <input type="number" min="1" class="form-control text-center border-0"
+                                    wire:change.defer="updateQuantity({{ $product['id'] }}, $event.target.value)"
+                                    wire:model.lazy="quantities.{{ $product['id'] }}" value="{{ $product['quantity'] }}"
+                                    id="quantityInput_{{ $product['id'] }}" style="height: 28px;" />
 
                             </td>
                             <td>{{ currencyBRLFormat($product->quantity * $product->price) }}</td>
@@ -64,6 +64,19 @@
                             <td colspan="10">Carrinho vazio</td>
                         </tr>
                     @endforelse
+                    <tr>
+                        <td colspan="4"></td>
+                        <td>
+                            <h5>Acréscimo/Desconto:</h5>
+                        </td>
+                        <td>
+                            <h5>
+                                <span class="badge badge-pill badge-secondary">
+                                    {!! currencyBRLFormat(number: $additionOrDiscount) !!}</span>
+                            </h5>
+                        </td>
+                        <td></td>
+                    </tr>
                     <tr>
                         <td colspan="4"></td>
                         <td>

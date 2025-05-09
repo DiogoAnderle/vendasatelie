@@ -45,6 +45,8 @@ class Kernel extends HttpKernel
         ],
     ];
 
+
+
     /**
      * The application's middleware aliases.
      *
@@ -65,5 +67,9 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'admin' => \App\Http\Middleware\AdminMiddleware::class,
+    ];
+
+    protected $routeMiddleware = [
+        'check.session' => \App\Http\Middleware\CheckSessionTimeout::class,
     ];
 }

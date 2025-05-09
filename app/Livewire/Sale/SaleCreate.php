@@ -48,7 +48,7 @@ class SaleCreate extends Component
             [
                 'products' => $this->products,
                 'cart' => Cart::getCart(),
-                'total' => Cart::getTotal(),
+                'total' => Cart::getTotal() + floatval($this->additionOrDiscount),
                 'totalItems' => Cart::totalItems(),
             ]
         );

@@ -1,5 +1,5 @@
 <div>
-    <x-card cardTitle="Lista de clientes ({{ $this->totalRegistros }})">
+    <x-card cardTitle="Lista de clientes ({{ $totalRegistros }})">
         <x-slot:cardTools>
             <a href="#" class="btn btn-primary" wire:click='create'>
                 <i class="fas fa-plus-circle"></i> Cadastrar Cliente

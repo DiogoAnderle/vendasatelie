@@ -38,35 +38,35 @@ Route::get('/', function () {
 
 Auth::routes(['register' => false]);
 
-Route::get('/home', Home::class)->name('home')->middleware(['auth']);
+Route::get('/home', Home::class)->name('home')->middleware(['auth', 'check.session']);
 
 Route::get('/categorias', CategoryComponent::class)->name('categories')->middleware(['auth', 'admin']);
-Route::get('/categorias/{category}', CategoryShow::class)->name('categories.show')->middleware(['auth', 'admin']);
+Route::get('/categorias/{category}', CategoryShow::class)->name('categories.show')->middleware(['auth', 'admin', 'check.session']);
 
-Route::get('/produtos', ProductComponent::class)->name('products')->middleware(['auth']);
-Route::get('/produtos/{product}', ProductShow::class)->name('products.show')->middleware(['auth']);
+Route::get('/produtos', ProductComponent::class)->name('products')->middleware(['auth', 'check.session']);
+Route::get('/produtos/{product}', ProductShow::class)->name('products.show')->middleware(['auth', 'check.session']);
 
 Route::get('/usuarios', UserComponent::class)->name('users')->middleware(['auth', 'admin']);
-Route::get('/usuarios/{user}', UserShow::class)->name('users.show')->middleware(['auth']);
+Route::get('/usuarios/{user}', UserShow::class)->name('users.show')->middleware(['auth', 'check.session']);
 
-Route::get('/clientes', CustomerComponent::class)->name('customers')->middleware(['auth']);
-Route::get('/clientes/{customer}', CustomerShow::class)->name('customers.show')->middleware(['auth']);
+Route::get('/clientes', CustomerComponent::class)->name('customers')->middleware(['auth', 'check.session']);
+Route::get('/clientes/{customer}', CustomerShow::class)->name('customers.show')->middleware(['auth', 'check.session']);
 
-Route::get('/criar-vendas', SaleCreate::class)->name('sales.create')->middleware(['auth']);
-Route::get('/sales', SaleList::class)->name('sales.list')->middleware(['auth']);
-Route::get('/sales/{sale}', SaleShow::class)->name('sales.show')->middleware(['auth']);
+Route::get('/criar-vendas', SaleCreate::class)->name('sales.create')->middleware(['auth', 'check.session']);
+Route::get('/sales', SaleList::class)->name('sales.list')->middleware(['auth', 'check.session']);
+Route::get('/sales/{sale}', SaleShow::class)->name('sales.show')->middleware(['auth', 'check.session']);
 Route::get('/sales/{sale}/edit', SaleEdit::class)->name('sales.edit');
 
-Route::get('/shop', ShopComponent::class)->name('shop')->middleware(['auth']);
+Route::get('/shop', ShopComponent::class)->name('shop')->middleware(['auth', 'check.session']);
 
-Route::get('/sales/invoice/{sale}', [PdfController::class, 'invoicePdf'])->name('sales.invoice')->middleware(['auth']);
+Route::get('/sales/invoice/{sale}', [PdfController::class, 'invoicePdf'])->name('sales.invoice')->middleware(['auth', 'check.session']);
 
-Route::get('/sales/receipt/{sale}', [PdfController::class, 'receiptPdf'])->name('sales.receipt')->middleware(['auth']);
+Route::get('/sales/receipt/{sale}', [PdfController::class, 'receiptPdf'])->name('sales.receipt')->middleware(['auth', 'check.session']);
 
 Route::get('/reports/export/pdf', [PdfController::class, 'bestSellingProductsPdf'])->name('reports.export.pdf');
 Route::get('/reports/export/excel', [ReportsPage::class, 'exportToExcel'])->name('reports.export.excel');
 
-Route::get('/email', EmailComponent::class)->name('emails')->middleware(['auth']);
+Route::get('/email', EmailComponent::class)->name('emails')->middleware(['auth', 'check.session']);
 Route::get('/offline', function () {
     return view('vendor.laravelpwa.offline');
 
