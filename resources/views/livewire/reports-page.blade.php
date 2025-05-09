@@ -1,6 +1,7 @@
 <div class="card">
     <div class="card-header">
         <h3>Relatório de Produtos Mais Vendidos</h3>
+       
 
         <div class="mb-3">
             <div class="row g-3 align-items-center">
@@ -22,6 +23,11 @@
                 </div>
                 <div class="col-auto">
                     <button class="btn btn-primary" wire:click="applyFilters">Pesquisar</button>
+                </div>
+                <div class="col-auto">
+                <a href="{{ route('reports.export.pdf') }}" class="btn btn-danger me-2" target="_blank">
+            <i class="fas fa-file-pdf"></i>
+        </a>
                 </div>
             </div>
         </div>

@@ -109,7 +109,7 @@ class Home extends Component
 
         $productsQuery = $productsQuery
             ->orderBy('total_quantity', 'desc')
-            ->take(30)
+            ->take(5)
             ->get();
         return $productsQuery;
     }
@@ -128,7 +128,7 @@ class Home extends Component
             ->whereYear('sales.sale_date', date('Y'))
             ->groupBy('users.id', 'users.name')
             ->orderBy('total', 'desc')
-            ->take(10)
+            ->take(5)
             ->get();
     }
     public function best_buyers()
@@ -138,7 +138,7 @@ class Home extends Component
             ->whereYear('sales.sale_date', date('Y'))
             ->groupBy('customers.id', 'customers.name')
             ->orderBy('total', 'desc')
-            ->take(50)
+            ->take(5)
             ->get();
     }
     public function set_best_sellers_and_buyers()

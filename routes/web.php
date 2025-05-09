@@ -63,6 +63,9 @@ Route::get('/sales/invoice/{sale}', [PdfController::class, 'invoicePdf'])->name(
 
 Route::get('/sales/receipt/{sale}', [PdfController::class, 'receiptPdf'])->name('sales.receipt')->middleware(['auth']);
 
+Route::get('/reports/export/pdf', [PdfController::class, 'bestSellingProductsPdf'])->name('reports.export.pdf');
+Route::get('/reports/export/excel', [ReportsPage::class, 'exportToExcel'])->name('reports.export.excel');
+
 Route::get('/email', EmailComponent::class)->name('emails')->middleware(['auth']);
 Route::get('/offline', function () {
     return view('vendor.laravelpwa.offline');
