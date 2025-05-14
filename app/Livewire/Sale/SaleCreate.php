@@ -35,6 +35,8 @@ class SaleCreate extends Component
     public $order_notes;
     public $quantities = [];
 
+    protected $listeners = ['product-updated' => 'refresh'];
+
     public function render()
     {
         $this->totalRegistros = Product::count();
@@ -206,4 +208,10 @@ class SaleCreate extends Component
             ->orderBy('id', 'asc')
             ->paginate($this->registers);
     }
+
+    public function editProduct(int $productId)
+    {
+        $this->dispatch('open-product-modal', $productId);
+    }
+
 }

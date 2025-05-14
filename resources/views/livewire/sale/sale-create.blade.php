@@ -9,6 +9,7 @@
             <a href="#" class="btn btn-sm btn-danger" wire:click='clear'>
                 <i class="fas fa-trash"></i> Cancelar Venda
             </a>
+
         </x-slot>
         {{-- Main Content --}}
         <div class="row">
@@ -28,6 +29,7 @@
             </div>
             {{-- Products --}}
             <div class="col-md-6">
+
                 @include('livewire.sale.products-list')
             </div>
         </div>

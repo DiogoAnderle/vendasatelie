@@ -64,17 +64,51 @@
             })
         })
 
-        document.addEventListener('livewire:init', () => {
-            Livewire.on('close-modal', (idModal) => {
-                $('#' + idModal).modal('hide')
-            })
-        })
+        // document.addEventListener('livewire:initialized', () => {
+        //     Livewire.on('msg', (event) => {
+        //         const Toast = Swal.mixin({
+        //             toast: true,
+        //             position: 'top-end', // Posição do toast (top-right é comum)
+        //             showConfirmButton: false,
+        //             timer: 3000, // Duração em milissegundos
+        //             timerProgressBar: true,
+        //             didOpen: (toast) => {
+        //                 toast.addEventListener('mouseenter', Swal.stopTimer)
+        //                 toast.addEventListener('mouseleave', Swal.resumeTimer)
+        //             }
+        //         });
+
+        //         Toast.fire({
+        //             icon: event.type === 'success' ? 'success' : (event.type === 'error' ? 'error' :
+        //                 (event.type === 'warning' ? 'warning' : 'info')),
+        //             title: event.message
+        //         });
+        //     });
+        // });
+
+        // document.addEventListener('livewire:init', () => {
+        //     Livewire.on('close-modal', (idModal) => {
+        //         $('#' + idModal).modal('hide')
+        //     })
+        // })
 
         document.addEventListener('livewire:init', () => {
-            Livewire.on('open-modal', (idModal) => {
-                $('#' + idModal).modal('show')
-            })
-        })
+            Livewire.on('open-modal', (payload) => {
+                let modalId;
+
+                if (typeof payload === 'object' && payload !== null && payload.hasOwnProperty('params')) {
+                    modalId = payload.params;
+                } else if (typeof payload === 'string') {
+                    modalId = payload;
+                } else if (Array.isArray(payload) && payload.length > 0 && typeof payload[0] === 'string') {
+                    modalId = payload[0];
+                } else {
+                    console.error('Erro: Formato inválido recebido no evento open-modal', payload);
+                    return; // Encerra a função se o formato for inesperado
+                }
+                $('#' + modalId).modal('show');
+            });
+        });
 
         document.addEventListener('livewire:init', () => {
             Livewire.on('delete', (event) => {
@@ -101,7 +135,8 @@
         document.addEventListener('livewire:init', () => {
             Livewire.on('finished', (event) => {
                 Swal.fire({
-                    title: "Tem certeza que deseja marcar pedido FV-" + event.id + ' como concluído?',
+                    title: "Tem certeza que deseja marcar pedido FV-" + event.id +
+                        ' como concluído?',
                     text: "Essa ação não pode ser desfeita!",
                     icon: "warning",
                     showCancelButton: true,
@@ -118,10 +153,8 @@
                 });
             })
         })
-
-
     </script>
-    
+
 </body>
 
 </html>

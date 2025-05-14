@@ -37,6 +37,8 @@ class SaleEdit extends Component
     public $customer_id; // Para armazenar o ID do cliente selecionado
     public $loadCart = false;
 
+    protected $listeners = ['product-updated' => 'refresh'];
+
     public function render()
     {
         $this->totalRegistros = Product::count();
@@ -200,4 +202,10 @@ class SaleEdit extends Component
             ->orderBy('id', 'asc')
             ->paginate($this->registers);
     }
+
+    public function editProduct(int $productId)
+    {
+        $this->dispatch('open-product-modal', $productId);
+    }
+
 }

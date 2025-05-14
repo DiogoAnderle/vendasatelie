@@ -1,31 +1,20 @@
 <?php
 
-namespace App\Livewire\Product;
+namespace App\Livewire\Sale;
 
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Livewire\Attributes\Computed;
-use Livewire\Attributes\On;
-use Livewire\Attributes\Title;
 use Livewire\Component;
-use Livewire\WithPagination;
 use Livewire\WithFileUploads;
 
-#[Title('Produtos')]
-class ProductComponent extends Component
+class ProductSale extends Component
 {
-    //Trait
-    use WithPagination;
     use WithFileUploads;
-    //Propriedades de Classe
-    public $search = '';
-    public $totalRegistros = 0;
-    public $quantity = 15;
+    public $productId;
 
-    //Propriedades de Modelo
-    public $productId = 0;
     public $name;
     public $category_id;
     public $description;
@@ -35,12 +24,11 @@ class ProductComponent extends Component
     public $image;
     public $imageModel;
 
+    protected $listeners = ['open-product-modal' => 'edit'];
 
     public function render()
     {
-        $this->totalRegistros = Product::count();
-
-        return view('livewire.product.product-component', ['products' => $this->products]);
+        return view('livewire.sale.product-sale');
     }
 
     #[Computed()]
@@ -49,31 +37,11 @@ class ProductComponent extends Component
         return Category::all();
     }
 
-    #[Computed()]
-    public function products()
+    public function openModal(): void
     {
-        return Product::where('name', 'like', '%' . $this->search . '%')
-            ->orWhere('id', 'like', '%' . $this->search . '%')
-            ->orWhere('name', 'like', '%' . $this->search . '%')
-            ->orWhere('description', 'like', '%' . $this->search . '%')
-            ->orWhere('purchase_price', 'like', '%' . $this->search . '%')
-            ->orWhere('sale_price', 'like', '%' . $this->search . '%')
-            ->orWhere('active', 'like', '%' . $this->search == 'ativo' ? 1 : 0 . '%')
-            ->orWhereHas('category', function ($q) {
-                $q->where('name', 'LIKE', '%' . $this->search . '%');
-            })->orderBy('id', 'asc')
-            ->paginate($this->quantity);
-
-
+        $this->dispatch(event: 'open-modal', params: 'modalProduct');
     }
 
-    public function create()
-    {
-        $this->Id = 0;
-        $this->cleanFormFields();
-        $this->dispatch('open-modal', 'modalProduct');
-    }
-    //Criar Produto
     public function store()
     {
         $rules = [
@@ -131,10 +99,11 @@ class ProductComponent extends Component
 
         $this->dispatch('open-modal', 'modalProduct');
     }
+
     public function update(Product $product)
     {
         $rules = [
-            'name' => ['required', 'min:3', 'max:255', Rule::unique('products')->ignore($this->Id)],
+            'name' => ['required', 'min:3', 'max:255', Rule::unique('products')->ignore($this->productId)],
             'description' => 'max:255',
             'purchase_price' => 'numeric|nullable',
             'sale_price' => 'required|numeric',
@@ -165,22 +134,8 @@ class ProductComponent extends Component
 
         $this->dispatch('close-modal', 'modalProduct');
         $this->dispatch('msg', 'Produto editado com sucesso.', 'success', '<i class="fas fa-check-circle"></i>');
+        $this->dispatch('product-updated', $product->id);
         $this->cleanFormFields();
-    }
-
-    #[On('destroyProduct')]
-    public function destroy($id)
-    {
-        $product = Product::findOrFail($id);
-
-        if ($product->image != null) {
-            Storage::delete('public/' . $product->image->url);
-            $product->image()->delete();
-        }
-
-        $product->delete();
-
-        $this->dispatch('msg', 'Produto removido com sucesso.', 'success', '<i class="fas fa-check-circle"></i>');
     }
 
     public function cleanFormFields()
@@ -197,4 +152,5 @@ class ProductComponent extends Component
         ]);
         $this->resetErrorBag();
     }
+
 }
