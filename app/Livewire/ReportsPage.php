@@ -13,17 +13,22 @@ class ReportsPage extends Component
 {
     use WithPagination;
 
-    public $search = '';
-    public $startDate;
-    public $endDate;
-    public $perPage = 10;
+    public $searchBestProducts = '';
+    public $startDateBestProducts;
+    public $endDateBestProducts;
+    public $perPageBestProducts = 10;
+
+    public $searchProductsWithoutInvoice = '';
+    public $startDateProductsWithoutInvoice;
+    public $endDateProductsWithoutInvoice;
+    public $perPageProductsWithoutInvoice = 10;
 
     public function render()
     {
-        $bestSellingProducts = $this->getBestSellingProducts();
-
         return view('livewire.reports-page', [
-            'bestSellingProducts' => $bestSellingProducts,
+            'bestSellingProducts' =>  $this->getBestSellingProducts(),
+            'salesWithoutInvoice' => $this->getSalesWithoutInvoice(),
+            'totalSalesWithoutInvoice' => $this->getTotalSalesWithoutInvoice(), // ← adiciona isso
         ]);
     }
 
@@ -31,20 +36,20 @@ class ReportsPage extends Component
     {
         $query = Item::select('items.id', 'items.name', 'items.image', 'items.product_id', 'items.price', DB::raw('SUM(items.quantity) as total_quantity'))
             ->join('products', 'products.id', '=', 'items.product_id')
-            ->where('items.name', 'like', '%' . $this->search . '%')
+            ->where('items.name', 'like', '%' . $this->searchBestProducts . '%')
             ->groupBy('product_id')
             ->orderBy('total_quantity', 'desc')
             ->whereYear('items.sale_date', date('Y')); // Filtro padrão para o ano atual
 
-        if ($this->startDate && $this->endDate) {
-            $query->whereBetween('items.sale_date', [$this->startDate, $this->endDate]);
-        } elseif ($this->startDate) {
-            $query->where('items.sale_date', '>=', $this->startDate);
-        } elseif ($this->endDate) {
-            $query->where('items.sale_date', '<=', $this->endDate);
+        if ($this->startDateBestProducts && $this->endDateBestProducts) {
+            $query->whereBetween('items.sale_date', [$this->startDateBestProducts, $this->endDateBestProducts]);
+        } elseif ($this->startDateBestProducts) {
+            $query->where('items.sale_date', '>=', $this->startDateBestProducts);
+        } elseif ($this->endDateBestProducts) {
+            $query->where('items.sale_date', '<=', $this->endDateBestProducts);
         }
 
-        return $query->paginate($this->perPage);
+        return $query->paginate($this->perPageBestProducts);
     }
 
     public function applyFilters()
@@ -61,4 +66,39 @@ class ReportsPage extends Component
     {
         $this->resetPage(); // Resetar a página ao alterar a quantidade por página
     }
+
+    public function getSalesWithoutInvoice()
+    {
+        $query = DB::table('sales')
+            ->select('id', 'total', 'addition_discount', 'net_value', 'sale_date', 'status')
+            ->where('invoice', 0) // apenas vendas sem nota
+            ->orderBy('sale_date', 'desc');
+
+        if ($this->startDateProductsWithoutInvoice && $this->endDateProductsWithoutInvoice) {
+            $query->whereBetween('sale_date', [$this->startDateProductsWithoutInvoice, $this->endDateProductsWithoutInvoice]);
+        } elseif ($this->startDateProductsWithoutInvoice) {
+            $query->where('sale_date', '>=', $this->startDateProductsWithoutInvoice);
+        } elseif ($this->endDateProductsWithoutInvoice) {
+            $query->where('sale_date', '<=', $this->endDateProductsWithoutInvoice);
+        }
+
+        return $query->paginate($this->perPageProductsWithoutInvoice);
+    }
+
+    public function getTotalSalesWithoutInvoice()
+    {
+        $query = DB::table('sales')
+            ->where('invoice', 0);
+
+        if ($this->startDateProductsWithoutInvoice && $this->endDateProductsWithoutInvoice) {
+            $query->whereBetween('sale_date', [$this->startDateProductsWithoutInvoice, $this->endDateProductsWithoutInvoice]);
+        } elseif ($this->startDateProductsWithoutInvoice) {
+            $query->where('sale_date', '>=', $this->startDateProductsWithoutInvoice);
+        } elseif ($this->endDateProductsWithoutInvoice) {
+            $query->where('sale_date', '<=', $this->endDateProductsWithoutInvoice);
+        }
+
+        return $query->sum('net_value');
+    }
+
 }

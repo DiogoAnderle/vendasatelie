@@ -24,6 +24,8 @@ class ProductComponent extends Component
     public $totalRegistros = 0;
     public $quantity = 15;
 
+    public $Id = 0;
+
     //Propriedades de Modelo
     public $productId = 0;
     public $name;
@@ -77,7 +79,7 @@ class ProductComponent extends Component
     public function store()
     {
         $rules = [
-            'name' => 'required|min:3|max:255|unique:products',
+           // 'name' => 'required|min:3|max:255|unique:products',
             'description' => 'max:255',
             'purchase_price' => 'numeric|nullable',
             'sale_price' => 'required|numeric',
@@ -134,7 +136,7 @@ class ProductComponent extends Component
     public function update(Product $product)
     {
         $rules = [
-            'name' => ['required', 'min:3', 'max:255', Rule::unique('products')->ignore($this->Id)],
+            //'name' => ['required', 'min:3', 'max:255', Rule::unique('products')->ignore($this->Id)],
             'description' => 'max:255',
             'purchase_price' => 'numeric|nullable',
             'sale_price' => 'required|numeric',

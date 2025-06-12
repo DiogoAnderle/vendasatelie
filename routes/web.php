@@ -65,6 +65,7 @@ Route::get('/sales/receipt/{sale}', [PdfController::class, 'receiptPdf'])->name(
 
 Route::get('/reports/export/pdf', [PdfController::class, 'bestSellingProductsPdf'])->name('reports.export.pdf');
 Route::get('/reports/export/excel', [ReportsPage::class, 'exportToExcel'])->name('reports.export.excel');
+Route::get('/reports/export-sales-without-invoice/pdf', [PdfController::class, 'salesWithoutInvoicePdf'])->name('reports.exportSalesWithoutInvoice.pdf');
 
 Route::get('/email', EmailComponent::class)->name('emails')->middleware(['auth', 'check.session']);
 Route::get('/offline', function () {
@@ -72,3 +73,5 @@ Route::get('/offline', function () {
 
 });
 Route::get('/reports', ReportsPage::class)->name('reports');
+
+
