@@ -86,10 +86,10 @@ class Home extends Component
         $this->itemsQuantity = Item::whereYear('sale_date', '=', date('Y'))->sum('quantity');
         $this->productsSalesQuantity = count(Item::whereYear('sale_date', '=', date('Y'))->groupBy('product_id')->get());
 
-        $this->monthSalesQuantity = Sale::whereMonth('sale_date', '=', date('m'))->count();
-        $this->monthTotalSales = currencyBRLFormat(Sale::whereMonth('sale_date', '=', date('m'))->sum('net_value'));
-        $this->monthItemsQuantity = Item::whereMonth('sale_date', '=', date('m'))->sum('quantity');
-        $this->monthProductsSalesQuantity = count(Item::whereMonth('sale_date', '=', date('m'))->groupBy('product_id')->get());
+        $this->monthSalesQuantity = Sale::whereMonth('sale_date', '=', date('m'))->whereYear('sale_date', date('Y'))->count();
+        $this->monthTotalSales = currencyBRLFormat(Sale::whereMonth('sale_date', '=', date('m'))->whereYear('sale_date', date('Y'))->sum('net_value'));
+        $this->monthItemsQuantity = Item::whereMonth('sale_date', '=', date('m'))->whereYear('sale_date', date('Y'))->sum('quantity');
+        $this->monthProductsSalesQuantity = count(Item::whereMonth('sale_date', '=', date('m'))->whereYear('sale_date', date('Y'))->groupBy('product_id')->get());
 
         $this->productsQuantity = Product::count();
         $this->categoriesQuantity = Category::count();

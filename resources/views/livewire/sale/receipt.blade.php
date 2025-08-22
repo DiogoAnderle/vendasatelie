@@ -87,9 +87,9 @@
 <body>
     <table width="100%">
         <tr>
-            <td width="25%">
-                <img src="{{ public_path() . '/' . 'storage/' . $shop->image->url }}" alt="" srcset=""  width="150px">
-            </td>
+                <!-- <td width="25%">
+                    <img src="{{ public_path() . '/' . 'storage/' . $shop->image->url }}" alt="" srcset=""  width="150px">
+                </td> -->
             <td width="45%" style="text-align: center;">
                 <h1>{{ $shop->name }}</h1>
                 @if ($shop->slogan)
